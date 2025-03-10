@@ -1,1 +1,1 @@
-web: gunicorn core_24.wsgi
+web: gunicorn project_24.wsgi
