@@ -1,7 +1,10 @@
+# bookings/views.py
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
-# Create your views here.
 def index(request):
-    return HttpResponse("Hello, world. You're at the bookings index.")
+    return render(request, 'bookings/index.html')  # Renders the home page of the bookings app
+
+
+def book_slot(request):
+    return render(request, 'book_slot.html')  # Renders the page to book a slot
