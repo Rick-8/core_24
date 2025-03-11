@@ -1,0 +1,50 @@
+.btn-like:hover,
+.btn-like:active {
+  color: #e84610;
+  background: transparent;
+  border: none;
+}
+
+/* Index.html Styles */
+
+.background-image {
+    background: url("/static/images/humphrey-muleba-LOA2mTj1vhc-unsplash.jpg") center/cover no-repeat;
+    height: 100vh; /* Ensure the image fills the screen height */
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Optional overlay to enhance text visibility */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.neon-red {
+    color: #ff4d4d; /* A less intense red */
+    font-weight: bold;
+    text-shadow: 
+        2px 2px 5px rgba(0, 0, 0, 0.7), /* Black outline */
+        -2px -2px 5px rgba(0, 0, 0, 0.7),
+        2px -2px 5px rgba(0, 0, 0, 0.7),
+        -2px 2px 5px rgba(0, 0, 0, 0.7),
+        0 0 10px #ff4d4d,  /* Neon red glow */
+        0 0 20px #ff4d4d,
+        0 0 30px #ff4d4d;
+}
+
+
+/* Ensures text stays visible */
+.background-image h1,
+.background-image p,
+.background-image a {
+  position: relative;
+  z-index: 1;
+}
+
+.welcome {
+    color: aliceblue;
+}

@@ -1,0 +1,7 @@
+<!-- templates/bookings/full_day.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Sorry, we are fully booked for this day.</h2>
+  <a href="{% url 'book_slot' %}" class="btn btn-warning">Choose another date</a>
+{% endblock %}
