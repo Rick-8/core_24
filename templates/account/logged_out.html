@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <div class="background-image d-flex justify-content-center align-items-center text-center py-5" style="height: 100vh;">
-        <div class="overlay p-4">
-            <h2 class="neon-red mb-4">You have successfully logged out!</h2>
-            <p class="welcome">Thank you for visiting. We hope to see you again soon!</p>
-            <a href="{% url 'index' %}" class="btn btn-like w-100">Go to Homepage</a>
-        </div>
+<div class="background-image d-flex align-items-start text-center py-5">
+    <div class="overlay">
+        <h2 class="neon-red mb-4">You have successfully logged out!</h2>
+        <p class="welcome">Thank you for visiting. We hope to see you again soon!</p>
+        <a href="{% url 'index' %}" class="btn btn-like w-100">Go to Homepage</a>        
     </div>
 </div>
 {% endblock %}
+
+
