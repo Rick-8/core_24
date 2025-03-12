@@ -5,6 +5,7 @@ from .forms import BookingForm
 from .models import Booking
 from django.utils import timezone
 from datetime import timedelta
+from django.contrib.auth import logout
 
 
 # View for landing page (index)
@@ -35,3 +36,12 @@ def book_slot(request):
 def confirmation(request, booking_id):
     booking = Booking.objects.get(id=booking_id)
     return render(request, 'bookings/confirmation.html', {'booking': booking})
+
+
+def logged_out(request):
+    return render(request, 'account/logged_out.html')
+
+
+def custom_logout(request):
+    logout(request)
+    return redirect('logged_out')  # Redirects to the custom 'logged_out' page

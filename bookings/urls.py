@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('book/', views.book_slot, name='book_slot'),
     path('confirmation/<int:booking_id>/', views.confirmation, name='confirmation'),
+    path('logged_out/', views.logged_out, name='logged_out'),
 ]
 
 if settings.DEBUG:

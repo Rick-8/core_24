@@ -43,7 +43,7 @@
                     <!-- Conditionally render Login/Logout based on user authentication status -->
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'custom_logout' %}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
