@@ -1,31 +1,16 @@
-"""
-URL configuration for project_24 project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from bookings.views import custom_logout, logged_out  # Correct import from bookings app
+from bookings.views import home, custom_logout, logged_out  # Correct import from bookings app
 
 urlpatterns = [
+    path('', home, name='index'),  # Home view with the name 'index'
     path('admin/', admin.site.urls),
     path('logout/', custom_logout, name='custom_logout'),  # Custom logout view
     path('accounts/', include('allauth.urls')),  # Allauth URL configuration for authentication
-    path('', include('bookings.urls')),  # Include URLs from the bookings app
     path('logged_out/', logged_out, name='logged_out'),  # Custom logged-out page after logout
+    path('bookings/', include('bookings.urls')),  # Include URLs from the bookings app
 ]
 
 # Serve static files during development

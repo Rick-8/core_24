@@ -1,47 +1,63 @@
-# bookings/views.py
-
-from django.shortcuts import render, redirect
-from .forms import BookingForm
-from .models import Booking
-from django.utils import timezone
-from datetime import timedelta
 from django.contrib.auth import logout
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Booking
+from .forms import BookingForm
 
 
-# View for landing page (index)
-def index(request):
-    return render(request, 'index.html')
+# Custom logout view
+def custom_logout(request):
+    logout(request)  # Log out the user
+    return redirect('logged_out')  # Redirect to logged_out page
 
 
-# View for booking page
+# Logged out page view
+def logged_out(request):
+    return render(request, 'bookings/logged_out.html')  # Render the logged-out page
+
+
+# Booking slot view (only accessible by logged-in users)
+@login_required
 def book_slot(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = BookingForm(request.POST)
         if form.is_valid():
-            # Check if the booking limit for the day has been reached
-            selected_date = form.cleaned_data['date']
-            bookings_for_day = Booking.objects.filter(date=selected_date)
-            if bookings_for_day.count() < 50:
-                form.save()
-                return redirect('confirmation', booking_id=form.instance.id)
-            else:
-                return render(request, 'bookings/full_day.html')
+            booking_date = form.cleaned_data["date"]
+
+            # Check if user already has a booking for this date
+            existing_booking = Booking.objects.filter(
+                date=booking_date, name=request.user.get_full_name() or request.user.username).exists()
+
+            if existing_booking:
+                messages.error(request, "You have already booked a session for this date.")
+                return redirect("book_slot")  # Reload the form with an error message
+
+            # Check if booking limit (50) is reached
+            if Booking.objects.filter(date=booking_date).count() >= 50:
+                messages.error(request, "Sorry, all slots for this date are fully booked.")
+                return redirect("book_slot")
+
+            # Save new booking
+            booking = form.save(commit=False)
+            booking.name = request.user.get_full_name() or request.user.username
+            booking.save()
+
+            messages.success(request, "Your session has been successfully booked!")
+            return redirect("booking_confirmation")
     else:
-        form = BookingForm()
+        form = BookingForm(initial={"name": request.user.get_full_name() or request.user.username})
 
-    return render(request, 'bookings/book_slot.html', {'form': form})
+    return render(request, "bookings/book_slot.html", {"form": form})
 
 
-# Confirmation view
-def confirmation(request, booking_id):
-    booking = Booking.objects.get(id=booking_id)
-    return render(request, 'bookings/confirmation.html', {'booking': booking})
+def booking_confirmation(request):
+    return render(request, "bookings/booking_confirmation.html")
+
+
+def home(request):
+    return render(request, 'index.html')
 
 
 def logged_out(request):
     return render(request, 'account/logged_out.html')
-
-
-def custom_logout(request):
-    logout(request)
-    return redirect('logged_out')  # Redirects to the custom 'logged_out' page

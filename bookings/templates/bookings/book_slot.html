@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Book a Session</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Book</button>
-  </form>
+
+    <h2>Book a Session</h2>
+
+    <!-- Display messages (success/error) -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success">Book</button>
+    </form>
+
 {% endblock %}
+

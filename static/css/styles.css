@@ -87,15 +87,10 @@ form .form-group input:focus, form .form-group select:focus {
   text-align: center;
 }
 
-/* Adjusts layout on smaller screens */
-@media (max-width: 768px) {
-  .background-image {
-    height: auto; /* Adjusts the background size for smaller screens */
-  }
-  .overlay {
-    padding: 15px; /* Reduces padding on smaller screens */
-  }
-  .form-group {
-    margin-bottom: 10px; /* Reduces spacing for form groups on smaller screens */
-  }
-}
+
+
+
+
+
+
+
