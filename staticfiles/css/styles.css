@@ -16,7 +16,7 @@
     0,
     0,
     0.5
-  ); /* Optional overlay to enhance text visibility */
+  ); 
   padding: 20px;
   border-radius: 10px;
 }
@@ -26,10 +26,10 @@
 }
 
 .neon-red {
-  color: #ff4d4d; /* A less intense red */
+  color: #ff4d4d;
   font-weight: bold;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7),
-    /* Black outline */ -2px -2px 5px rgba(0, 0, 0, 0.7),
+   -2px -2px 5px rgba(0, 0, 0, 0.7),
     2px -2px 5px rgba(0, 0, 0, 0.7), -2px 2px 5px rgba(0, 0, 0, 0.7),
     0 0 10px #ff4d4d, /* Neon red glow */ 0 0 20px #ff4d4d, 0 0 30px #ff4d4d;
 }
@@ -47,21 +47,21 @@ form .form-group input,
 form .form-group select {
   padding: 10px;
   font-size: 16px;
-  width: 100%; /* Ensures full width of input fields */
-  margin-bottom: 15px; /* Adds space between inputs */
+  width: 100%;
+  margin-bottom: 15px;
   border-radius: 5px;
-  border: 1px solid #ccc; /* Light border for inputs */
+  border: 1px solid #ccc;
 }
 
 form .form-group input:focus,
 form .form-group select:focus {
-  border-color: #ff4d4d; /* Border turns neon red on focus */
-  outline: none; /* Removes default browser outline */
+  border-color: #ff4d4d;
+  outline: none;
 }
 
 /* Form Button Styling */
 .btn-like {
-  background-color: #e84610; /* Primary button color */
+  background-color: #e84610;
   color: white;
   padding: 12px;
   border-radius: 5px;
@@ -70,7 +70,7 @@ form .form-group select:focus {
 }
 
 .btn-like:hover {
-  background-color: blue; /* Button hover effect */
+  background-color: blue;
 }
 
 /* Ensures text stays visible */
@@ -95,19 +95,6 @@ form .form-group select:focus {
   text-align: center;
 }
 
-/* Adjusts layout on smaller screens */
-@media (max-width: 768px) {
-  .background-image {
-    height: auto; /* Adjusts the background size for smaller screens */
-  }
-  .overlay {
-    padding: 15px; /* Reduces padding on smaller screens */
-  }
-  .form-group {
-    margin-bottom: 10px; /* Reduces spacing for form groups on smaller screens */
-  }
-}
-
 /* New Styles for Booking Form and List */
 .booking-form {
   display: flex;
@@ -115,7 +102,7 @@ form .form-group select:focus {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  max-width: 600px; /* Adjust width as needed */
+  max-width: 600px;
 }
 
 /* Ensures the form content is centered within the form */
@@ -130,7 +117,7 @@ form {
 form .form-group input,
 form .form-group select {
   width: 100%;
-  max-width: 400px; /* Ensures input fields do not grow too wide */
+  max-width: 400px;
   margin-bottom: 15px;
 }
 

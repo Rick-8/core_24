@@ -10,3 +10,9 @@ class CustomerForm(forms.ModelForm):
             'phone_number_1': forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Phone Number 1'}),
             'phone_number_2': forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Phone Number 2 (optional)'}),
         }
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if not name:
+            raise forms.ValidationError("Name is required!")
+        return name
