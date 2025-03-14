@@ -99,3 +99,62 @@ form .form-group input:focus, form .form-group select:focus {
     margin-bottom: 10px; /* Reduces spacing for form groups on smaller screens */
   }
 }
+
+/* New Styles for Booking Form and List */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 600px; /* Adjust width as needed */
+}
+
+/* Ensures the form content is centered within the form */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Align buttons and form fields */
+form .form-group input, form .form-group select {
+  width: 100%;
+  max-width: 400px;  /* Ensures input fields do not grow too wide */
+  margin-bottom: 15px;
+}
+
+/* Custom alignment for the booking confirmation section */
+h3, h2 {
+  text-align: center;
+  width: 100%;
+}
+
+/* Booking List Styling */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Cancel button style */
+button.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button.btn-danger:hover {
+  background-color: #c82333;
+}

@@ -1,21 +1,63 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+<div class="container text-center">
+  <!-- Page Heading -->
+  <div class="row mb-4">
+    <h2 class="neon-red">Book a Session</h2>
+  </div>
 
-    <h2>Book a Session</h2>
-
-    <!-- Display messages (success/error) -->
+  <!-- Messages Section (if any errors or success messages) -->
+  <div class="row mb-4">
     {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
+    {% for message in messages %}
+    {% if "error" in message.tags %}
+    <div class="alert alert-{{ message.tags }} w-100 text-center">{{ message }}</div>
     {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
 
-    <form method="POST">
+  <!-- Booking Form Section -->
+  <div class="row mb-4">
+    <form method="POST" class="w-100">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-success">Book</button>
+      <div class="mb-3">
+        {{ form.as_p }}
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-success">Book</button>
+      </div>
     </form>
+  </div>
 
-{% endblock %}
+  <!-- Upcoming Bookings Section -->
+  <!-- Upcoming Bookings Section -->
+  <div class="row mt-5 justify-content-center text-center">
+    <div class="col-md-8"> <!-- Adjust width for better alignment -->
+      <h3 class="neon-red">Your Upcoming Bookings</h3>
+      <ul class="list-group">
+        {% for booking in upcoming_bookings %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span class="flex-grow-1 text-start">{{ booking.date }}</span> <!-- Expands to take available space -->
 
+          <!-- Delete Booking Form -->
+          <form method="POST" action="{% url 'book_slot' %}">
+            {% csrf_token %}
+            <input type="hidden" name="cancel_booking" value="{{ booking.id }}">
+            <button type="submit" class="btn btn-danger ms-3">Delete</button>
+        </form>
+        </li>
+        {% empty %}
+        <li class="list-group-item">You have no upcoming bookings.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+
+
+  {% endblock %}
+
+  <script src="{% static 'js/custom.js' %}" defer></script>

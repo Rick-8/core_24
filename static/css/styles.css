@@ -87,9 +87,13 @@ form .form-group input:focus, form .form-group select:focus {
   text-align: center;
 }
 
+/* Specific Styles for the Form to book a slot */
 
-
-
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
 
