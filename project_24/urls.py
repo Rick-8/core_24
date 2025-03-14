@@ -2,15 +2,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from bookings.views import home, custom_logout, logged_out  # Correct import from bookings app
+from bookings.views import home, custom_logout, logged_out
+
 
 urlpatterns = [
-    path('', home, name='index'),  # Home view with the name 'index'
+    path('', home, name='index'),
     path('admin/', admin.site.urls),
-    path('logout/', custom_logout, name='custom_logout'),  # Custom logout view
-    path('accounts/', include('allauth.urls')),  # Allauth URL configuration for authentication
-    path('logged_out/', logged_out, name='logged_out'),  # Custom logged-out page after logout
-    path('bookings/', include('bookings.urls')),  # Include URLs from the bookings app
+    path('join-up/', include('join_up.urls')),
+    path('logout/', custom_logout, name='custom_logout'),
+    path('accounts/', include('allauth.urls')),
+    path('logged_out/', logged_out, name='logged_out'),
+    path('bookings/', include('bookings.urls')),
 ]
 
 # Serve static files during development

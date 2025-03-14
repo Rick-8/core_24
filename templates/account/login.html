@@ -6,7 +6,7 @@
 <h1 class="display-6 welcome">Login <span class="neon-red">24</span></h1>
 <p class="lead welcome fw-bold">Your 24-hour fitness destination.</p>
 
-<form class="welcome text-start" method="post">
+<form class="col-md-6 mx-auto text-start welcome" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-like w-100">Login</button>

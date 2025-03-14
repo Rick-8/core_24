@@ -1,5 +1,5 @@
-from django.urls import path
-from . import views  # Import the views to handle the routes
+from django.urls import path, include
+from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('bookings/booking-confirmation/', views.booking_confirmation, name='booking_confirmation'),
     path('logged-out/', views.logged_out, name='logged_out'),
     path('logout/', views.custom_logout, name='logout'),
+    path('join-up/', include('join_up.urls')),
 ]
 
 if settings.DEBUG:

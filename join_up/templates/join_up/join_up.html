@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 mx-auto text-start welcome">
+    <h2 class="neon-red">Join Us Today!</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Join</button>
+    </form>
+</div>
+{% if messages %}
+<div class=" text-center">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

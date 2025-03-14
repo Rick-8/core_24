@@ -3,12 +3,12 @@
 
 {% block content %}
 <div class="container text-center">
-  <!-- Page Heading -->
+
   <div class="row mb-4">
     <h2 class="neon-red">Book a Session</h2>
   </div>
 
-  <!-- Messages Section (if any errors or success messages) -->
+  
   <div class="row mb-4">
     {% if messages %}
     {% for message in messages %}
@@ -19,7 +19,7 @@
     {% endif %}
   </div>
 
-  <!-- Booking Form Section -->
+ 
   <div class="row mb-4">
     <form method="POST" class="w-100">
       {% csrf_token %}
@@ -32,21 +32,21 @@
     </form>
   </div>
 
-  <!-- Upcoming Bookings Section -->
-  <!-- Upcoming Bookings Section -->
+  
   <div class="row mt-5 justify-content-center text-center">
-    <div class="col-md-8"> <!-- Adjust width for better alignment -->
+    <div class="col-md-8">
       <h3 class="neon-red">Your Upcoming Bookings</h3>
+      <p class="welcome">*Deleted bookings can not be undone!</p>
       <ul class="list-group">
         {% for booking in upcoming_bookings %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span class="flex-grow-1 text-start">{{ booking.date }}</span> <!-- Expands to take available space -->
+          <span class="flex-grow-1 text-start">{{ booking.date }}</span>
 
-          <!-- Delete Booking Form -->
+         
           <form method="POST" action="{% url 'book_slot' %}">
             {% csrf_token %}
             <input type="hidden" name="cancel_booking" value="{{ booking.id }}">
-            <button type="submit" class="btn btn-danger ms-3">Delete</button>
+            <button type="submit" class="btn btn-danger ms-3">Delete*</button>
         </form>
         </li>
         {% empty %}
