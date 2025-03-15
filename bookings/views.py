@@ -2,8 +2,8 @@ from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Booking
-from .forms import BookingForm
+from .models import Booking, Profile
+from .forms import ProfileForm, BookingForm  # Correct import for ProfileForm from bookings.forms
 from datetime import date
 
 
@@ -14,6 +14,10 @@ def custom_logout(request):
 
 def logged_out(request):
     return render(request, 'account/logged_out.html')
+
+
+def home(request):
+    return render(request, "index.html")
 
 
 @login_required
@@ -70,5 +74,52 @@ def booking_confirmation(request):
     return render(request, "bookings/booking_confirmation.html")
 
 
-def home(request):
-    return render(request, 'index.html')
+@login_required
+def profile_view(request):
+
+    profile = Profile.objects.get(user=request.user)
+
+    return render(request, 'bookings/profile.html', {'profile': profile})
+
+
+@login_required
+def delete_profile(request):
+    """
+    Allows the user to delete their profile. Optionally, deactivate the user account
+    instead of deleting the user to retain data.
+    """
+    try:
+        profile = Profile.objects.get(user=request.user)
+        user = request.user
+        profile.delete()
+
+        user.is_active = False
+        user.save()
+
+        messages.success(request, "Your profile has been deleted successfully.")
+        return redirect("logged_out")
+    except Profile.DoesNotExist:
+        messages.error(request, "Profile not found.")
+        return redirect("profile_view")
+
+
+@login_required
+def edit_profile(request):
+    user = request.user  # Get the logged-in user
+
+    # Check if the user already has a profile
+    try:
+        profile = user.profile
+    except Profile.DoesNotExist:
+        profile = None  # If the profile does not exist, handle accordingly
+
+    if request.method == 'POST':
+        # Pass the logged-in user’s profile data into the form
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()  # Save the updated profile
+            return redirect('profile_view')  # Redirect to the profile view page after saving
+    else:
+        form = ProfileForm(instance=profile)  # Initialize the form with the user's profile data
+
+    return render(request, 'bookings/edit_profile.html', {'form': form})

@@ -17,7 +17,7 @@ class Profile(models.Model):
     membership_number = models.CharField(max_length=50, unique=True, blank=True)
     personal_address = models.TextField()
     phone_number_1 = models.CharField(max_length=15)
-    phone_number_2 = models.CharField(max_length=15)
+    phone_number_2 = models.CharField(max_length=15,)
 
     def generate_membership_number(self):
         """
@@ -36,7 +36,7 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.membership_number:
-            self.membership_number = self.generate_membership_number()  # Auto-generate if not set
+            self.membership_number = self.generate_membership_number()
         super().save(*args, **kwargs)
 
     def __str__(self):

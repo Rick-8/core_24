@@ -1,7 +1,7 @@
 /* Index.html Styles */
 .background-image {
   background: url("/static/images/humphrey-muleba-LOA2mTj1vhc-unsplash.jpg") center/cover no-repeat;
-  height: 100vh; /* Ensure the image fills the screen height */
+  height: 100vh;
   width: 100%;
   position: relative;
   display: flex;
@@ -10,20 +10,20 @@
 }
 
 .overlay {
-  background-color: rgba(0, 0, 0, 0.5); /* Optional overlay to enhance text visibility */
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 10px;
 }
 
 .neon-red {
-  color: #ff4d4d; /* A less intense red */
+  color: #ff4d4d;
   font-weight: bold;
   text-shadow: 
-      2px 2px 5px rgba(0, 0, 0, 0.7), /* Black outline */
+      2px 2px 5px rgba(0, 0, 0, 0.7),
       -2px -2px 5px rgba(0, 0, 0, 0.7),
       2px -2px 5px rgba(0, 0, 0, 0.7),
       -2px 2px 5px rgba(0, 0, 0, 0.7),
-      0 0 10px #ff4d4d,  /* Neon red glow */
+      0 0 10px #ff4d4d,
       0 0 20px #ff4d4d,
       0 0 30px #ff4d4d;
 }
@@ -40,20 +40,20 @@
 form .form-group input, form .form-group select {
   padding: 10px;
   font-size: 16px;
-  width: 100%; /* Ensures full width of input fields */
-  margin-bottom: 15px; /* Adds space between inputs */
+  width: 100%;
+  margin-bottom: 15px;
   border-radius: 5px;
-  border: 1px solid #ccc; /* Light border for inputs */
+  border: 1px solid #ccc;
 }
 
 form .form-group input:focus, form .form-group select:focus {
-  border-color: #ff4d4d; /* Border turns neon red on focus */
-  outline: none; /* Removes default browser outline */
+  border-color: #ff4d4d;
+  outline: none;
 }
 
 /* Form Button Styling */
 .btn-like {
-  background-color: #e84610; /* Primary button color */
+  background-color: #e84610;
   color: white;
   padding: 12px;
   border-radius: 5px;
@@ -62,7 +62,7 @@ form .form-group input:focus, form .form-group select:focus {
 }
 
 .btn-like:hover {
-  background-color: blue; /* Button hover effect */
+  background-color: blue;
 }
 
 /* Ensures text stays visible */
@@ -88,13 +88,25 @@ form .form-group input:focus, form .form-group select:focus {
 }
 
 /* Specific Styles for the Form to book a slot */
-
 .booking-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+/* Custom width for the accordion */
+.accordion {
+  max-width: 600px;  /* Set a fixed max-width */
+  margin: 0 auto;  /* Center the accordion */
+}
 
+.accordion-item {
+  width: 100%;  /* Ensure each item takes up full width */
+}
 
+.accordion-button {
+  width: 100%;  /* Ensure the button inside each item takes up full width */
+}
 
-
+.accordion-collapse {
+  width: 100%;  /* Prevent expansion beyond the accordion width */
+}

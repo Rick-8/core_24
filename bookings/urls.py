@@ -10,6 +10,9 @@ urlpatterns = [
     path('logged-out/', views.logged_out, name='logged_out'),
     path('logout/', views.custom_logout, name='logout'),
     path('join-up/', include('join_up.urls')),
+    path('profile/', views.profile_view, name='profile_view'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('profile/delete/', views.delete_profile, name='delete_profile'),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="neon-red">Our Membership Plans</h1>
+<br>
+<div class="accordion container-sm" id="accordionExample">
+    {% for membership in memberships %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+            <button class="accordion-button {% if forloop.counter != 1 %}collapsed{% endif %}" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true"
+                aria-controls="collapse{{ forloop.counter }}">
+                {{ membership.name }}
+            </button>
+        </h2>
+        <div id="collapse{{ forloop.counter }}"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p class="price neon-red fs-3">Price: £{{ membership.price }} Per Month</p>
+                
+                <p>{{ membership.description|safe }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No memberships available.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+<script src="{% static 'js/ckeditor5/build/ckeditor.js' %}"></script>

@@ -1,9 +1,8 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Booking
+from .models import Booking, Profile
 
 
-# Custom DateInput widget for HTML5 date picker
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -11,7 +10,27 @@ class DateInput(forms.DateInput):
 class BookingForm(ModelForm):
     class Meta:
         model = Booking
-        fields = ['date']  # Only include the date field
+        fields = ['date']
         widgets = {
-            'date': DateInput(),  # Use HTML5 date picker
+            'date': DateInput(),
+        }
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['email', 'membership_number', 'personal_address', 'phone_number_1', 'phone_number_2']
+        widgets = {
+            'email': forms.TextInput(attrs={
+                'placeholder': 'Enter your email',
+                'class': 'form-control'
+            }),
+            'membership_number': forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
+            'personal_address': forms.Textarea(attrs={
+                'placeholder': 'Enter your address',
+                'class': 'form-control',
+                'rows': 4,
+            }),
+            'phone_number_1': forms.TextInput(attrs={'placeholder': 'Enter primary phone number', 'class': 'form-control'}),
+            'phone_number_2': forms.TextInput(attrs={'placeholder': 'Enter secondary phone number', 'class': 'form-control'}),
         }

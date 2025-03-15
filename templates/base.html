@@ -34,12 +34,17 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'index' %}"> Home</a>
+                        <a class="nav-link active" href="{% url 'index' %}">Home</a>
                     </li>
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'book_slot' %}"> Bookings</a>
+                        <a class="nav-link" href="{% url 'book_slot' %}">Bookings</a>
+                    </li>
+
+                    <!-- Add Profile link for logged-in users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_view' %}">Profile</a>
                     </li>
                     {% endif %}
 
@@ -48,7 +53,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Memberships</a>
+                        <a class="nav-link" href="{% url 'memberships' %}">Memberships</a>
                     </li>
 
                     {% if user.is_authenticated %}
@@ -57,13 +62,14 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}"> Login</a>
+                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
+
 
     <!-- Main Content -->
     <div class="content">
