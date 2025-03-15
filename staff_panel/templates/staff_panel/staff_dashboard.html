@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4 neon-red">Welcome to the Staff Dashboard, {{ user.username|upper }}</h1>
+
+    <div class="row">
+        <!-- Pending Join Requests Section -->
+        <div class="col-md-8">
+            <h2 class="welcome">Pending Join Requests</h2>
+            <div class="accordion" id="joinRequestsAccordion">
+                {% for customer in join_requests %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ customer.id }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ customer.id }}" aria-expanded="true"
+                            aria-controls="collapse{{ customer.id }}">
+                            <strong>Member:</strong> {{ customer.name }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ customer.id }}" class="accordion-collapse collapse"
+                        aria-labelledby="heading{{ customer.id }}" data-bs-parent="#joinRequestsAccordion">
+                        <div class="accordion-body">
+                            <strong>Email:</strong> {{ customer.email }} <br>
+                            <strong>Phone:</strong> {{ customer.phone_number_1 }} <br>
+                            <strong>Status:</strong> {{ customer.status }} <br>
+
+                            <!-- Button to delete the join request -->
+                            <form action="{% url 'delete_join_request' customer.id %}" method="post"
+                                style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="accordion-item">
+                    <div class="accordion-body">
+                        No join requests available.
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Control Section -->
+        <div class="col-md-4">
+            <h3 class="welcome">Control Panel</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{% url 'user_admin' %}" class="btn btn-primary btn-block">Manage Users</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#" class="btn btn-secondary btn-block">Some Control Action 2</a>
+                </li>
+                <!-- Add more controls as needed -->
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

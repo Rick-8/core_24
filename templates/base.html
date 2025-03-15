@@ -32,9 +32,10 @@
 
             <!-- Navbar links (collapsed for small screens) -->
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Left side links -->
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'index' %}">Home</a>
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
                     </li>
 
                     {% if user.is_authenticated %}
@@ -65,11 +66,23 @@
                         <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
                     {% endif %}
+
+                    {% if user.is_staff or user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'staff_dashboard' %}">Staff Dashboard</a>
+                    </li>
+                    {% endif %}
+
+                    <!-- Right side links -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item ms-auto">
+                        <p class="nav-link mb-0"><span class="red">{{ user.username|upper }}</span></p>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-
 
     <!-- Main Content -->
     <div class="content">
@@ -84,7 +97,7 @@
     </div>
 
     <!-- Footer (optional) -->
-    <footer class="bg-dark text-white text-center py-3 fixed-bottom">
+    <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2025 Core24 Gym. All rights reserved.</p>
     </footer>
 

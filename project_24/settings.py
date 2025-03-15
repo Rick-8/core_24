@@ -31,7 +31,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'join_up',
     'ckeditor',
+    'staff_panel',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +73,7 @@ ROOT_URLCONF = 'project_24.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'staff_panel/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
