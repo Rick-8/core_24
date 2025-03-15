@@ -1,16 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib import messages
 from join_up.models import Customer
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.forms import SetPasswordForm
-from .forms import UserForm
-from django.http import JsonResponse
-from .forms import UserUpdateForm
+from .forms import UserCreationForm, UserUpdateForm
 
 
 @login_required
@@ -35,7 +30,6 @@ def delete_join_request(request, customer_id):
         return redirect('index')
 
     if request.method == "POST":
-
         try:
             customer = Customer.objects.get(id=customer_id)
             customer.delete()
@@ -49,26 +43,24 @@ def delete_join_request(request, customer_id):
 @login_required
 def user_admin(request):
     if request.user.is_superuser:
-        users = User.objects.all()  # Superuser sees all users
+        users = User.objects.all()
     else:
-        users = User.objects.filter(is_staff=False, is_superuser=False)  # Staff sees only regular users
+        users = User.objects.filter(is_staff=False, is_superuser=False)
 
     return render(request, 'staff_panel/user_admin.html', {'users': users})
 
 
-@login_required
 def create_user(request):
-    if not request.user.is_staff:
-        return redirect('index')
-
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'User created successfully!')
-            return redirect('user_admin')
+            form.save()  # Create the user
+            messages.success(request, "User created successfully!")
+            return redirect('user_admin')  # Redirect to user admin after creation
+        else:
+            messages.error(request, "There was an error creating the user")
     else:
-        form = UserForm()
+        form = UserCreationForm()
 
     return render(request, 'staff_panel/create_user.html', {'form': form})
 
@@ -76,16 +68,14 @@ def create_user(request):
 @login_required
 def toggle_user_active(request, user_id):
     if not request.user.is_staff:
-        return redirect('index')
+        return HttpResponseForbidden("You do not have permission to access this page.")
 
     user = get_object_or_404(User, id=user_id)
-
-    # Toggle active status
     user.is_active = not user.is_active
     user.save()
 
-    # Redirect back to the same page
-    return redirect(request.META.get('HTTP_REFERER', 'dashboard:user-admin'))
+    messages.success(request, f'User {user.username} is now {"active" if user.is_active else "inactive"}.')
+    return redirect('user_admin')
 
 
 @login_required
@@ -113,7 +103,6 @@ def delete_user(request, user_id):
         return redirect('index')
 
     user = get_object_or_404(User, id=user_id)
-
     user.delete()
 
     messages.success(request, f'User {user.username} has been deleted.')

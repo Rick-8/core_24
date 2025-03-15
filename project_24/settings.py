@@ -73,7 +73,10 @@ ROOT_URLCONF = 'project_24.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'staff_panel/templates'],
+        'DIRS': [
+            BASE_DIR / 'templates',
+            BASE_DIR / 'staff_panel' / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +88,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'project_24.wsgi.application'
 
@@ -144,7 +148,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-
+SITE_ID = 1
 
 STATIC_URL = '/static/'
 

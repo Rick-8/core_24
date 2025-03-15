@@ -1,14 +1,16 @@
 <!-- create_user.html -->
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Create New User</h1>
+    <h1 class="text-center mb-4 neon-red">Create New User</h1>
 
-    <form method="POST">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Create User</button>
+        <button type="submit">Create User</button>
     </form>
 </div>
 {% endblock %}

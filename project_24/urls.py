@@ -15,6 +15,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('logged_out/', logged_out, name='logged_out'),
     path('bookings/', include('bookings.urls')),
+    path('staff_panel/', include('staff_panel.urls')),
 ]
 
 # Serve static files during development
