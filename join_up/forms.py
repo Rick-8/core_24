@@ -7,8 +7,14 @@ class CustomerForm(forms.ModelForm):
         model = Customer
         fields = ['name', 'email', 'phone_number_1', 'phone_number_2']
         widgets = {
-            'phone_number_1': forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Phone Number 1'}),
-            'phone_number_2': forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Phone Number 2 (optional)'}),
+            'name': forms.TextInput(
+                attrs={'type': 'text', 'placeholder': 'Name'}),
+            'email': forms.TextInput(
+                attrs={'type': 'email', 'placeholder': 'Email'}),
+            'phone_number_1': forms.TextInput(
+                attrs={'type': 'tel', 'placeholder': 'Phone Number 1'}),
+            'phone_number_2': forms.TextInput(
+                attrs={'type': 'tel', 'placeholder': 'Phone Number 2 (optional)'}),
         }
 
     def clean_name(self):

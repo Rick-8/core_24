@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<div class="col-md-6 mx-auto text-start welcome">
+<div class="col-md-12 mx-auto text-center welcome">
     <h2 class="neon-red">Join Us Today!</h2>
-
+    <br>
     {% if messages %}
     <div class="text-center welcome">
         {% for message in messages %}
@@ -15,7 +15,10 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+            <p>{{ field }}</p>
+        {% endfor %}
+        <br>
         <button type="submit" class="btn btn-primary">Join</button>
     </form>
 </div>
