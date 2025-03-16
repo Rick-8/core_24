@@ -51,6 +51,42 @@
       0 0 30px #ff4d4d;
 }
 
+.red {
+  color: #ff4d4d;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px black, -2px -2px 4px black, 2px -2px 4px black, -2px 2px 4px black;
+}
+
+.delete-red {
+  color: #ff4d4d;
+  text-shadow: 2px 2px 4px black
+}
+
+/* closed day styling */
+table th, table td {
+  padding: 15px;
+  text-align: center;
+}
+
+table tbody tr {
+  margin-bottom: 10px; /* Space between rows */
+}
+
+.red:hover,
+.red:active {
+  color: #ff4d4d;
+  font-weight: bold;
+  text-shadow: 
+      2px 2px 5px rgba(0, 0, 0, 0.7),
+      -2px -2px 5px rgba(0, 0, 0, 0.7),
+      2px -2px 5px rgba(0, 0, 0, 0.7),
+      -2px 2px 5px rgba(0, 0, 0, 0.7),
+      0 0 10px #ff4d4d,
+      0 0 20px #ff4d4d,
+      0 0 30px #ff4d4d;
+}
+
+
 /* Form Styling */
 form .form-group input, form .form-group select {
   padding: 10px;

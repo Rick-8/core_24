@@ -5,7 +5,7 @@
     <h2 class="neon-red">Update User Settings</h2>
     <br>
 
-    <form method="POST" action="{% url 'update_user_settings' user.id %}" class="welcome">
+    <form method="POST" action="{% url 'staff_panel:update_user_settings' user.id %}" class="welcome">
         {% csrf_token %}
         <div class="form-group">
             <label for="username">Username</label>
@@ -17,14 +17,6 @@
             <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
         </div>
 
-        <div class="form-group mt-3">
-            <label for="is_active">Account Status</label>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" 
-                {% if user.is_active %}checked{% endif %}>
-                <label class="form-check-label" for="is_active">Active</label>
-            </div>
-        </div>
         <button type="submit" class="btn btn-primary mt-3">Update User</button>
     </form>
 </div>

@@ -57,6 +57,21 @@
   text-shadow: 2px 2px 4px black, -2px -2px 4px black, 2px -2px 4px black, -2px 2px 4px black;
 }
 
+.delete-red {
+  color: #ff4d4d;
+  text-shadow: 2px 2px 4px black
+}
+
+/* closed day styling */
+table th, table td {
+  padding: 15px;
+  text-align: center;
+}
+
+table tbody tr {
+  margin-bottom: 10px; /* Space between rows */
+}
+
 .red:hover,
 .red:active {
   color: #ff4d4d;

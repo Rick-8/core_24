@@ -26,8 +26,8 @@
                             <strong>Status:</strong> {{ customer.status }} <br>
 
                             <!-- Button to delete the join request -->
-                            <form action="{% url 'delete_join_request' customer.id %}" method="post"
-                                style="display: inline;">
+                            <form action="{% url 'staff_panel:delete_join_request' customer_id=customer.id %}"
+                                method="post" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
@@ -49,11 +49,13 @@
             <h3 class="welcome">Control Panel</h3>
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="{% url 'user_admin' %}" class="btn btn-primary btn-block">Manage Users</a>
+                    <a href="{% url 'staff_panel:user_admin' %}" class="btn btn-primary btn-block">Manage Users</a>
                 </li>
+                {% if user.is_superuser %}
                 <li class="list-group-item">
-                    <a href="#" class="btn btn-secondary btn-block">Some Control Action 2</a>
+                    <a href="{% url 'staff_panel:closed_day_list' %}" class="btn btn-danger mb-3 btn-block">Closed Days</a>
                 </li>
+                {% endif %}
                 <!-- Add more controls as needed -->
             </ul>
         </div>

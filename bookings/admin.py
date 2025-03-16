@@ -1,19 +1,22 @@
 from django.contrib import admin
-from .models import Booking, Profile
+from .models import Booking, Profile, ClosedDay
 
 
-# Customizing the Booking admin display
+@admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['user', 'date']  # Only fields that exist in the Booking model
-    list_filter = ['date']  # You can filter by the 'date' field
+    list_display = ('user', 'date', 'closed_for_maintenance')
+    list_filter = ('closed_for_maintenance',)
 
 
-# Customizing the Profile admin display
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'membership_number', 'personal_address', 'phone_number_1', 'phone_number_2']  # Fields to display in the list
-    search_fields = ['user__username', 'email', 'membership_number']  # Allow searching by username, email, and membership number
+    list_display = ['user', 'email', 'membership_number', 'personal_address', 'phone_number_1', 'phone_number_2']
+    search_fields = ['user__username', 'email', 'membership_number']
 
 
-# Registering the models with customized admin views
-admin.site.register(Booking, BookingAdmin)
+class ClosedDayAdmin(admin.ModelAdmin):
+    list_display = ['date', 'reason']
+    search_fields = ['date', 'reason']
+
+
 admin.site.register(Profile, ProfileAdmin)
+admin.site.register(ClosedDay, ClosedDayAdmin)

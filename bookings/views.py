@@ -2,8 +2,8 @@ from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Booking, Profile
-from .forms import ProfileForm, BookingForm  # Correct import for ProfileForm from bookings.forms
+from .models import Booking, Profile, ClosedDay
+from .forms import ProfileForm, BookingForm
 from datetime import date
 
 
@@ -31,7 +31,6 @@ def book_slot(request):
         if "cancel_booking" in request.POST:
             booking_id = request.POST.get("cancel_booking")
             if booking_id:
-                print(f"Booking ID to delete: {booking_id}")
                 try:
                     booking = Booking.objects.get(id=booking_id)
                     if booking.user == request.user:
@@ -41,22 +40,27 @@ def book_slot(request):
                         messages.error(request, "You can only cancel your own bookings.")
                 except Booking.DoesNotExist:
                     messages.error(request, "Booking not found.")
-            else:
-                messages.error(request, "No booking ID provided.")
             return redirect("book_slot")
 
         if form.is_valid():
             booking_date = form.cleaned_data["date"]
 
-            existing_booking = Booking.objects.filter(date=booking_date, user=request.user).exists()
-            if existing_booking:
+            # Check if the gym is closed on the selected date
+            if ClosedDay.objects.filter(date=booking_date).exists():
+                messages.error(request, f"The gym is closed on {booking_date} due to maintenance.")
+                return redirect("book_slot")
+
+            # Check if the user has already booked for the date
+            if Booking.objects.filter(date=booking_date, user=request.user).exists():
                 messages.error(request, "You have already booked a session for this date.")
                 return redirect("book_slot")
 
+            # Check if the date has reached its booking limit
             if Booking.objects.filter(date=booking_date).count() >= 50:
                 messages.error(request, "Sorry, all slots for this date are fully booked.")
                 return redirect("book_slot")
 
+            # Create and save the booking
             booking = form.save(commit=False)
             booking.user = request.user
             booking.save()

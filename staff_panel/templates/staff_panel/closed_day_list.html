@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+  <h1 class="neon-red">Closed Days</h1>
+  <br>
+  <br>
+  <a href="{% url 'staff_panel:add_closed_day' %}" class="btn btn-success mb-3">Add Closed Day</a>
+  <a href="{% url 'staff_panel:staff_dashboard' %}" class="btn btn-secondary mb-3">Cancel</a>
+  <table>
+    <thead class="welcome mb-3">
+      <tr>
+        <th >Date</th>
+        <th>Reason</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for closed_day in closed_days %}
+        <tr class="welcome mb-3">
+          <td>{{ closed_day.date }}</td>
+          <td>{{ closed_day.reason }}</td>
+          <td>
+            <a href="{% url 'staff_panel:delete_closed_day' closed_day.pk %}" class="delete-red">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
