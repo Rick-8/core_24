@@ -27,21 +27,39 @@
                             <strong>Email:</strong> {{ user.email }} <br>
                             <strong>Staff:</strong> {{ user.is_staff|yesno:"Yes,No" }} <br>
 
+                            <!-- Promote to Staff (Visible to superusers only) -->
                             {% if request.user.is_superuser %}
                             <a href="{% url 'staff_panel:promote_to_staff' user.id %}" class="btn btn-success mb-3" 
                             {% if user.is_staff %}disabled{% endif %}>
                                 Promote to Staff
                             </a>
-                            <a href="{% url 'staff_panel:reset_password' user.id %}" class="btn btn-warning mb-3">Reset Password</a>
-
-                            <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal" data-user-id="{{ user.id }}">
-                                Delete User
-                            </button>
-                            <a href="{% url 'staff_panel:update_user_settings' user.id %}" class="btn btn-primary mb-3">Update User
-                                Settings</a>
                             {% endif %}
 
-                            <form method="POST" action="{% url 'staff_panel:toggle_user_active' user.id %}" class="mt-3">
+                            <!-- Reset Password (Visible to staff members or superusers) -->
+                            {% if request.user.is_staff or request.user.is_superuser %}
+                            <a href="{% url 'staff_panel:reset_password' user.id %}" class="btn btn-warning mb-3">Reset
+                                Password</a>
+                            {% endif %}
+
+                            <!-- Delete User (Visible to superusers only) -->
+                            {% if request.user.is_superuser %}
+                            <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal"
+                                data-bs-target="#deleteUserModal" data-user-id="{{ user.id }}">
+                                Delete User
+                            </button>
+                            {% endif %}
+
+                            <!-- Update User Settings (Visible to staff members or superusers) -->
+                            {% if user != request.user %}
+                            {% if request.user.is_staff or request.user.is_superuser %}
+                            <a href="{% url 'staff_panel:update_user_settings' user.id %}" class="btn btn-primary mb-3">Update
+                                User Settings</a>
+                            {% endif %}
+                            {% endif %}
+
+                            <!-- Toggle Active Status (Visible to staff members or superusers) -->
+                            <form method="POST" action="{% url 'staff_panel:toggle_user_active' user.id %}"
+                                class="mt-3">
                                 {% csrf_token %}
                                 <div class="form-check form-switch">
                                     <input class="form-check-input toggle-switch" type="checkbox" role="switch"
@@ -54,6 +72,7 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

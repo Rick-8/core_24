@@ -1,38 +1,32 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from join_up.models import Customer
 from bookings.models import ClosedDay
-from .forms import ClosedDayForm
-from .forms import CustomUserCreationForm, UserUpdateForm
-from django.contrib.auth.forms import UserCreationForm
-from . import views
+from .forms import ClosedDayForm, CustomUserCreationForm
 
 
-@login_required
+def is_staff_user(user):
+    return user.is_staff
+
+
+def is_superuser(user):
+    return user.is_superuser
+
+
+@staff_member_required
 def staff_dashboard(request):
-    if not request.user.is_staff:
-        return redirect('index')
-
-    # Get all join requests with a status of 'pending'
     join_requests = Customer.objects.filter(status='pending')
-
-    # Pass the join requests to the template
-    context = {
-        'join_requests': join_requests,
-    }
-
+    context = {'join_requests': join_requests}
     return render(request, 'staff_panel/staff_dashboard.html', context)
 
 
-@login_required
+@staff_member_required
 def delete_join_request(request, customer_id):
-    if not request.user.is_staff:
-        return redirect('index')
-
     if request.method == "POST":
         try:
             customer = Customer.objects.get(id=customer_id)
@@ -44,50 +38,39 @@ def delete_join_request(request, customer_id):
     return redirect('staff_dashboard')
 
 
-@login_required
+@staff_member_required
 def user_admin(request):
-    if request.user.is_superuser:
-        users = User.objects.all()
-    else:
-        users = User.objects.filter(is_staff=False, is_superuser=False)
-
+    users = User.objects.all() if request.user.is_superuser else User.objects.filter(is_staff=False, is_superuser=False)
     return render(request, 'staff_panel/user_admin.html', {'users': users})
 
 
+@staff_member_required
 def create_user(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)  # Correct form in POST
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()  # Create the user
+            form.save()
             messages.success(request, "User created successfully!")
-            return redirect('staff_panel:user_admin')  # Use the app namespace
+            return redirect('staff_panel:user_admin')
         else:
             messages.error(request, "There was an error creating the user")
     else:
-        form = CustomUserCreationForm()  # Use the same form for GET
+        form = CustomUserCreationForm()
 
     return render(request, 'staff_panel/create_user.html', {'form': form})
 
 
-
-@login_required
+@staff_member_required
 def toggle_user_active(request, user_id):
-    if not request.user.is_staff:
-        return HttpResponseForbidden("You do not have permission to access this page.")
-
     user = get_object_or_404(User, id=user_id)
     user.is_active = not user.is_active
     user.save()
-
     messages.success(request, f'User {user.username} is now {"active" if user.is_active else "inactive"}.')
     return redirect('staff_panel:user_admin')
 
 
-@login_required
+@user_passes_test(is_superuser, login_url='index')
 def promote_to_staff(request, user_id):
-    if not request.user.is_superuser:
-        return redirect('index')
-
     try:
         user = User.objects.get(id=user_id)
         if not user.is_staff:
@@ -102,82 +85,64 @@ def promote_to_staff(request, user_id):
     return redirect('staff_panel:user_admin')
 
 
+@user_passes_test(is_superuser, login_url='index')
 def delete_user(request, user_id):
     if request.method == "POST":
         user = get_object_or_404(User, id=user_id)
         user.delete()
         messages.success(request, "User deleted successfully.")
-        return redirect("staff_dashboard")  # Redirect to your staff dashboard or user list page
-    else:
-        messages.error(request, "Invalid request method.")
-        return redirect("staff_dashboard")
+    return redirect("staff_panel:user_admin")
 
 
-@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser, login_url='index')
 def update_user_settings(request, user_id):
-    # Ensure only superusers can update user settings
-    if not request.user.is_superuser:
-        return HttpResponseForbidden("You do not have permission to access this page.")
-
-    # Get the user object to be updated
     user = get_object_or_404(User, id=user_id)
-
     if request.method == 'POST':
-        # Update the user fields with the form data
         username = request.POST.get('username')
         email = request.POST.get('email')
         is_active = 'is_active' in request.POST
         is_staff = 'is_staff' in request.POST
         is_superuser = 'is_superuser' in request.POST
 
-        # Validate if username and email are not empty
         if not username or not email:
             messages.error(request, "Username and Email are required.")
-            return render(request, 'staff_panel/update_user.html', {'user': user})
+            return render(request, 'staff_panel/update_user_settings', {'user': user})
 
-        # Update the user object
         user.username = username
         user.email = email
         user.is_active = is_active
         user.is_staff = is_staff
         user.is_superuser = is_superuser
-
-        # Save the updated user object
         user.save()
 
         messages.success(request, f"User {user.username}'s settings have been updated successfully.")
         return redirect('staff_panel:user_admin')
 
-    # For GET request, display the current user data in the form
     return render(request, 'staff_panel/update_user.html', {'user': user})
 
 
-@login_required
+@staff_member_required
 def reset_password(request, user_id):
-    if not request.user.is_staff:
-        return redirect('index')
-
     user = get_object_or_404(User, id=user_id)
-
     if request.method == 'POST':
         form = SetPasswordForm(user, request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, f'Password reset successfully for {user.username}')
-            return redirect('user_admin')
+            return redirect('staff_panel:user_admin')
     else:
         form = SetPasswordForm(user)
 
     return render(request, 'staff_panel/reset_password.html', {'form': form, 'user': user})
 
 
-@login_required
+@staff_member_required
 def closed_day_list(request):
     closed_days = ClosedDay.objects.all()
     return render(request, 'staff_panel/closed_day_list.html', {'closed_days': closed_days})
 
 
-@login_required
+@staff_member_required
 def add_closed_day(request):
     if request.method == 'POST':
         form = ClosedDayForm(request.POST)
@@ -190,7 +155,7 @@ def add_closed_day(request):
     return render(request, 'staff_panel/add_closed_day.html', {'form': form})
 
 
-@login_required
+@staff_member_required
 def delete_closed_day(request, pk):
     try:
         closed_day = ClosedDay.objects.get(pk=pk)

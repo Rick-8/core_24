@@ -6,7 +6,7 @@
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-    <a href="{% url 'index' %}" class="btn btn-primary">Return to Home</a>
+    <button type="submit" class="btn btn-warning mb-3">Save Changes</button>
+    <a href="{% url 'index' %}" class="btn btn-secondary mb-3">Cancel</a>
   </form>
 {% endblock %}
