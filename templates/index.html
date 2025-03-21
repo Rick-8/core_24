@@ -1,11 +1,69 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - Core24 Gym{% endblock %}
+{% block title %}Core24 Gym{% endblock %}
 
 {% block content %}
 {% load static %}
 
-        <h1 class="display-3 fw-bold welcome">Welcome to Core <span class="neon-red">24</span></h1>
-        <p class="lead welcome fw-bold">Your 24-hour fitness destination.</p>
+<div class="container text-center mt-5">
+    <!-- Gym Introduction Section -->
+    <h1 class="display-3 fw-bold welcome">Welcome to Core <span class="neon-red">24</span></h1>
+    <p class="lead welcome fw-bold">Your 24-hour fitness destination.</p>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <p class="fs-5">
+                Core 24 is a state-of-the-art gym that is open 24/7, allowing you to work out at your convenience.
+                Whether you're a beginner or an experienced athlete, we have the right equipment and training programs for you.
+            </p>
+            <p class="fs-5">
+                Our expert trainers and high-quality facilities will help you achieve your fitness goals in a supportive environment.
+            </p>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'join_up:join_up' %}" class="btn btn-danger btn-lg">Join up</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'book_slot' %}" class="btn btn-primary btn-lg">Book a Slot</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="container mt-5">
+    <h2 class="text-center fw-bold">What Our Members Say</h2>
+    
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <p class="card-text">"Core 24 has completely transformed my fitness routine! The 24/7 access is a game-changer."</p>
+                    <h6 class="fw-bold">- Alex R.</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <p class="card-text">"I love the friendly atmosphere and the amazing trainers. Highly recommend!"</p>
+                    <h6 class="fw-bold">- Sarah W.</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <p class="card-text">"Top-notch equipment and super clean facilities. The best gym in town!"</p>
+                    <h6 class="fw-bold">- James P.</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

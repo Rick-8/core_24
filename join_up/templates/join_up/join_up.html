@@ -4,24 +4,25 @@
 
 <div class="col-md-12 mx-auto text-center welcome">
     <h2 class="neon-red">Join Us Today!</h2>
-    <br>
-    {% if messages %}
-    <div class="alert alert-success">
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
 
-    <form method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-        <p>{{ field }}</p>
-        {% endfor %}
-        <br>
-        <button type="submit" class="btn btn-primary">Join</button>
-    </form>
+    {% if messages %}
+        <div class="alert alert-success p-2">
+            {% for message in messages %}
+                {% if message.tags == "success" %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
 
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <p>{{ field }}</p>
+    {% endfor %}
+    <br>
+    <button type="submit" class="btn btn-primary">Join</button>
+</form>
 
 {% endblock %}

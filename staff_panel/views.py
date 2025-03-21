@@ -31,7 +31,6 @@ def delete_join_request(request, customer_id):
         try:
             customer = Customer.objects.get(id=customer_id)
             customer.delete()
-            messages.success(request, f'Join request for {customer.name} has been deleted.')
         except Customer.DoesNotExist:
             messages.error(request, 'The requested customer could not be found.')
 

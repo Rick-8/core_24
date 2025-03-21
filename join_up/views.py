@@ -19,7 +19,7 @@ def join_up(request):
     else:
         form = CustomerForm()
 
-    return render(request, 'join_up/join_up.html', {'form': form})
+    return render(request, 'join_up/join_up.html', {'form': form, 'join_up_messages': messages.get_messages(request)})
 
 
 def membership_list(request):
