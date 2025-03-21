@@ -6,7 +6,7 @@
     <h2 class="neon-red">Join Us Today!</h2>
     <br>
     {% if messages %}
-    <div class="text-center welcome">
+    <div class="alert alert-success">
         {% for message in messages %}
         <p>{{ message }}</p>
         {% endfor %}
@@ -16,7 +16,7 @@
     <form method="POST">
         {% csrf_token %}
         {% for field in form %}
-            <p>{{ field }}</p>
+        <p>{{ field }}</p>
         {% endfor %}
         <br>
         <button type="submit" class="btn btn-primary">Join</button>

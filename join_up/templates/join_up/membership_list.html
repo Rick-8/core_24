@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="neon-red">Membership List</h1>
+
+  <!-- Button to Add New Membership -->
+  <a href="{% url 'join_up:add_membership' %}" class="btn btn-success mb-3">Add New Membership</a>
+
+  <!-- Accordion to display memberships -->
+  <div class="accordion" id="membershipAccordion">
+    {% for membership in memberships %}
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ membership.id }}">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ membership.id }}" aria-expanded="true" aria-controls="collapse{{ membership.id }}">
+            {{ membership.name }}
+          </button>
+        </h2>
+        <div id="collapse{{ membership.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ membership.id }}" data-bs-parent="#membershipAccordion">
+          <div class="accordion-body">
+            <p><strong>Price:</strong> {{ membership.price }}</p>
+            <p><strong>Duration:</strong> {{ membership.duration }}</p>
+
+            <!-- Action Buttons -->
+            <a href="{% url 'join_up:update_membership' membership.id %}" class="btn btn-warning btn-sm">Edit</a>
+
+            <form action="{% url 'join_up:delete_membership' membership.id %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

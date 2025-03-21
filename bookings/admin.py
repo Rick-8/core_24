@@ -9,7 +9,10 @@ class BookingAdmin(admin.ModelAdmin):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'membership_number', 'personal_address', 'phone_number_1', 'phone_number_2']
+    list_display = [
+        'user', 'email', 'membership_number', 'personal_address',
+        'phone_number_1', 'phone_number_2'
+    ]
     search_fields = ['user__username', 'email', 'membership_number']
 
 

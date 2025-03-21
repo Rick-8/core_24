@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'join_up:create_membership' %}" class="btn btn-success mb-3">Create New Membership</a>
+
+<div class="container mt-4">
+    <h2 class="neon-red">Manage Memberships</h2>
+
+    <div class="accordion" id="membershipAccordion">
+        {% for membership in memberships %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ membership.id }}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse{{ membership.id }}" aria-expanded="true"
+                    aria-controls="collapse{{ membership.id }}">
+                    {{ membership.name }} - £{{ membership.price }}
+                </button>
+            </h2>
+            <div id="collapse{{ membership.id }}" class="accordion-collapse collapse"
+                aria-labelledby="heading{{ membership.id }}" data-bs-parent="#membershipAccordion">
+                <div class="accordion-body">
+                    <p><strong>Duration:</strong> {{ membership.duration }} days</p>
+                    <p><strong>Status:</strong> {% if membership.active %} Active {% else %} Inactive {% endif %}</p>
+                    <div class="d-flex gap-2 align-items-center">
+                        <a href="{% url 'join_up:edit_membership' membership.id %}" class="btn btn-primary">View/Edit</a>
+                        <form method="POST" action="{% url 'join_up:delete_membership' membership.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No memberships found.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

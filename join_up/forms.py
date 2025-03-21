@@ -1,5 +1,7 @@
 from django import forms
 from .models import Customer
+from .models import Membership
+from ckeditor.widgets import CKEditorWidget
 
 
 class CustomerForm(forms.ModelForm):
@@ -22,3 +24,9 @@ class CustomerForm(forms.ModelForm):
         if not name:
             raise forms.ValidationError("Name is required!")
         return name
+
+
+class MembershipForm(forms.ModelForm):
+    class Meta:
+        model = Membership
+        fields = ['name', 'price', 'description', 'active']
