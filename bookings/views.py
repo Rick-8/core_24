@@ -41,6 +41,8 @@ def book_slot(request):
     )
     form = BookingForm(request.POST or None)
 
+    booking_date = None
+
     if request.method == "POST":
         if "cancel_booking" in request.POST:
             booking_id = request.POST.get("cancel_booking")
@@ -71,31 +73,34 @@ def book_slot(request):
                 )
                 return redirect("book_slot")
 
-        if Booking.objects.filter(
-                date=booking_date, user=request.user).exists():
-            messages.error(
-                request, "You have already booked a session for this date."
-            )
-            return redirect("book_slot")
+            if Booking.objects.filter(
+                    date=booking_date, user=request.user).exists():
+                messages.error(
+                    request, "You have already booked a session for this date."
+                )
+                return redirect("book_slot")
 
-        if Booking.objects.filter(date=booking_date).count() >= 50:
-            messages.error(
-                request, "Sorry, all slots for this date are fully booked."
-            )
-            return redirect("book_slot")
+            # Check if slots are full before processing the form
+            if Booking.objects.filter(date=booking_date).count() >= 50:
+                messages.error(
+                    request, "Sorry, all slots for this date are fully booked."
+                )
+                return redirect("book_slot")
 
-        booking = form.save(commit=False)
-        booking.user = request.user
-        booking.save()
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.save()
 
-        messages.success(
-            request, "Your session has been successfully booked!")
-        return redirect("booking_confirmation")
+            messages.success(
+                request, "Your session has been successfully booked!")
+            return redirect("booking_confirmation")
 
     return render(
         request, "bookings/book_slot.html",
         {"form": form, "upcoming_bookings": upcoming_bookings}
     )
+
+
 
 
 def booking_confirmation(request):

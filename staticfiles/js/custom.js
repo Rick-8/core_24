@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => response.json())
         .then((data) => {
           if (data.status === "success") {
-            // Optionally update the label text or show a success message
             switchEl.nextElementSibling.innerText = isActive
               ? "Active"
               : "Inactive";
@@ -48,14 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
       var form = document.getElementById("deleteUserForm");
       if (form) {
         form.action = "/staff_panel/delete_user/" + userId + "/";
-        // Ensure it matches your URL pattern
       }
     });
   }
-  document.addEventListener("DOMContentLoaded", function () {
-    // Initialize CKEditor on the description field
-    if (document.getElementById("id_description")) {
-      CKEDITOR.replace("id_description");
-    }
-  });
+
+  // Initialize CKEditor for the description field
+  if (document.getElementById("id_description")) {
+    ClassicEditor.create(document.querySelector("#id_description")).catch(
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 });

@@ -10,7 +10,7 @@
         <div class="col-12 col-md-8">
             <div class="card shadow-lg border-0 rounded">
                 <div class="card-header bg-dark text-white text-center">
-                    <h2 class="mb-0"><i class="fas fa-user-clock"></i> Pending Join Requests</h2>
+                    <h2 class="mb-0"><i class="fas fa-user-clock"></i>   Pending Join Requests</h2>
                 </div>
                 <div class="card-body">
                     <div class="accordion" id="joinRequestsAccordion">
@@ -63,18 +63,18 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-center">
                             <a href="{% url 'staff_panel:user_admin' %}" class="btn btn-primary w-100">
-                                <i class="fas fa-users-cog"></i> Manage Users
+                                <i class="fas fa-users-cog"></i>  Manage Users
                             </a>
                         </li>
                         {% if user.is_superuser %}
                         <li class="list-group-item text-center">
                             <a href="{% url 'staff_panel:closed_day_list' %}" class="btn btn-danger w-100">
-                                <i class="fas fa-calendar-times"></i> Closed Days
+                                <i class="fas fa-calendar-times"></i>  Closed Days
                             </a>
                         </li>
                         <li class="list-group-item text-center">
                             <a href="{% url 'join_up:manage_memberships' %}" class="btn btn-warning w-100">
-                                <i class="fas fa-id-card"></i> Manage Memberships
+                                <i class="fas fa-id-card"></i>  Manage Memberships
                             </a>
                         </li>
                         {% endif %}

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const logoutButton = document.querySelector(".btn-primary");
   if (logoutButton) {
     logoutButton.addEventListener("click", function () {
-      $("#logoutModal").modal("hide"); // Hide the modal
+      $("#logoutModal").modal("hide");
     });
   }
 
@@ -59,4 +59,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
   }
+
+  // Handle modal opening and set form action dynamically
+  const deleteUserButtons = document.querySelectorAll(
+    '[data-bs-toggle="modal"]'
+  );
+  deleteUserButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const userId = this.getAttribute("data-user-id");
+      const deleteUserForm = document.getElementById("deleteUserForm");
+      deleteUserForm.action =
+        '{% url "staff_panel:delete_user" 0 %}'.slice(0, -1) + userId + "/";
+    });
+  });
 });
