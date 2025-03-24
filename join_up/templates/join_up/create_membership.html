@@ -6,6 +6,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form.media }}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-success">Create Membership</button>
         <a href="{% url 'join_up:manage_memberships' %}" class="btn btn-secondary">Cancel</a>
     </form>
