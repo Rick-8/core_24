@@ -5,7 +5,7 @@
     <h2>Create New Membership</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.media }}
         <button type="submit" class="btn btn-success">Create Membership</button>
         <a href="{% url 'join_up:manage_memberships' %}" class="btn btn-secondary">Cancel</a>
     </form>
