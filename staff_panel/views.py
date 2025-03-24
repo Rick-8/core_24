@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseForbidden
@@ -8,6 +9,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from join_up.models import Customer
 from bookings.models import ClosedDay
 from .forms import ClosedDayForm, CustomUserCreationForm
+from django.db.models import Q
 
 
 def is_staff_user(user):
@@ -35,6 +37,25 @@ def delete_join_request(request, customer_id):
             messages.error(request, 'The requested customer could not be found.')
 
     return redirect('staff_dashboard')
+
+
+@staff_member_required
+def user_admin(request):
+    search_query = request.GET.get('search', '')  # Get the search query from GET request
+
+    # Fetch users, filter by search query if provided
+    if search_query:
+        users_list = User.objects.filter(username__icontains=search_query) | User.objects.filter(email__icontains=search_query)
+    else:
+        users_list = User.objects.all()
+
+    # Paginate the users list (optional)
+    paginator = Paginator(users_list, 6)
+    page_number = request.GET.get('page')
+    users = paginator.get_page(page_number)
+
+    return render(request, 'staff_panel/user_admin.html', {'users': users, 'search_query': search_query})
+
 
 
 @staff_member_required

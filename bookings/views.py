@@ -80,7 +80,6 @@ def book_slot(request):
                 )
                 return redirect("book_slot")
 
-            # Check if slots are full before processing the form
             if Booking.objects.filter(date=booking_date).count() >= 50:
                 messages.error(
                     request, "Sorry, all slots for this date are fully booked."
@@ -99,8 +98,6 @@ def book_slot(request):
         request, "bookings/book_slot.html",
         {"form": form, "upcoming_bookings": upcoming_bookings}
     )
-
-
 
 
 def booking_confirmation(request):

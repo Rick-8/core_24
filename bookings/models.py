@@ -48,16 +48,15 @@ class Profile(models.Model):
         """
         Generates a unique membership number.
         Starts from 1001 and increments based on the highest existing
-        membership number.
+        numeric membership number.
         """
         MEMBERSHIP_START_NUMBER = 1001
-        latest_profile = Profile.objects.aggregate(
-            Max('membership_number'))['membership_number__max']
+        latest_profile = Profile.objects.aggregate(Max('membership_number'))['membership_number__max']
 
-        if latest_profile is None:
+        try:
+            new_membership_number = int(latest_profile) + 1 if latest_profile else MEMBERSHIP_START_NUMBER
+        except (ValueError, TypeError):
             new_membership_number = MEMBERSHIP_START_NUMBER
-        else:
-            new_membership_number = int(latest_profile) + 1
 
         return str(new_membership_number)
 

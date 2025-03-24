@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+
 /* Index.html Styles */
 .background-image {
   background: url("/static/images/humphrey-muleba-LOA2mTj1vhc-unsplash.webp") center/cover no-repeat;
@@ -8,6 +11,7 @@
   justify-content: center;
   align-items: center;
 }
+
 
 /* Ensures text stays visible */
 .background-image h1,
@@ -31,8 +35,8 @@
   border: none;
 }
 
-
 .neon-red {
+  font-family: 'Orbitron', sans-serif;
   color: #ff4d4d;
   font-weight: bold;
   text-shadow: 
@@ -58,6 +62,10 @@
       0 0 20px #ff4d4d,
       0 0 30px #ff4d4d;
 }
+.navbar {
+  background-color: royalblue !important;
+}
+
 
 /* Nav Bar hovers */
 .nav-link:hover,
@@ -75,6 +83,7 @@
 }
 
 .welcome {
+  font-family: 'Orbitron', sans-serif important!;
   color: white;
 }
 
@@ -149,18 +158,18 @@ form .form-group input:focus, form .form-group select:focus {
 }
 /* Custom width for the accordion */
 .accordion {
-  max-width: 600px;  /* Set a fixed max-width */
-  margin: 0 auto;  /* Center the accordion */
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .accordion-item {
-  width: 100%;  /* Ensure each item takes up full width */
+  width: 100%;
 }
 
 .accordion-button {
-  width: 100%;  /* Ensure the button inside each item takes up full width */
+  width: 100%;
 }
 
 .accordion-collapse {
-  width: 100%;  /* Prevent expansion beyond the accordion width */
+  width: 100%;
 }
