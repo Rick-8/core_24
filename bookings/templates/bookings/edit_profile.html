@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-  <h2>Edit Profile</h2>
+  <h1 class="neon-red">Edit Profile</h1>
 
-  <form method="POST">
+  <form method="POST" class="welcome">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-warning mb-3">Save Changes</button>
+    <button type="submit" class="btn btn-success mb-3">Save Changes</button>
     <a href="{% url 'index' %}" class="btn btn-secondary mb-3">Cancel</a>
   </form>
 {% endblock %}

@@ -85,11 +85,13 @@
                             style="color: white; font-weight: bold;">Profile</a>
                     </li>
                     {% endif %}
-
+                    
+                    {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'join_up:join_up' %}"
-                            style="color: white; font-weight: bold;">Join Up</a>
+                            style="color: white; font-weight: bold;">Apply to join</a>
                     </li>
+                    {% endif %}
 
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'join_up:memberships' %}"
@@ -130,7 +132,7 @@
     <!-- Main Content -->
     <div class="content">
 
-        <div class="background-image d-flex align-items-start text-center py-5">
+        <div class="background-image d-flex align-items-start text-center bg-dark p-5 rounded py-5">
             <div class="overlay">
                 {% block content %}
                 {% endblock %}

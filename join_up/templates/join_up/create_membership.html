@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Create New Membership</h2>
-    <form method="post">
+    <h1 class="neon-red">Create New Membership</h1>
+    <form method="post" class="welcome">
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
