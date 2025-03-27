@@ -14,7 +14,10 @@ class CustomUserCreationForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff']
+        fields = [
+            'username', 'email', 'first_name',
+            'last_name', 'is_active', 'is_staff'
+        ]
 
 
 class ClosedDayForm(forms.ModelForm):
@@ -22,5 +25,7 @@ class ClosedDayForm(forms.ModelForm):
         model = ClosedDay
         fields = ['date', 'reason']
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'date': forms.DateInput(
+                attrs={'type': 'date', 'class': 'form-control'}
+            ),
         }

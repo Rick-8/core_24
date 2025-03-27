@@ -16,7 +16,10 @@ class CustomerForm(forms.ModelForm):
             'phone_number_1': forms.TextInput(
                 attrs={'type': 'tel', 'placeholder': 'Phone Number 1'}),
             'phone_number_2': forms.TextInput(
-                attrs={'type': 'tel', 'placeholder': 'Phone Number 2 (optional)'}),
+                attrs={
+                    'type': 'tel',
+                    'placeholder': 'Phone Number 2 (optional)'
+                }),
         }
 
     def clean_name(self):

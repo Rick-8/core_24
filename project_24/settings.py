@@ -56,6 +56,10 @@ MIDDLEWARE = [
     'staff_panel.middleware.StaffRequiredMiddleware',
 ]
 
+# Authentication settings
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
+
 ROOT_URLCONF = 'project_24.urls'
 
 TEMPLATES = [
@@ -136,9 +140,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage' # noqa
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Authentication settings
-LOGIN_REDIRECT_URL = 'index'  # Redirect after login
-LOGOUT_REDIRECT_URL = 'index'  # Redirect after logout
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

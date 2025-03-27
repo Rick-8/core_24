@@ -5,7 +5,7 @@
     <h1 class="text-center mb-4 neon-red">Welcome to the Staff Dashboard</h1>
     <h1 class="text-center pt-4 welcome">{{ user.username|upper }}</h1>
 
-    <div class="row m-2"> <!-- Adjusted margin to m-2 for smaller screens -->
+    <div class="row m-2">
         <!-- Pending Join Requests Section -->
         <div class="col-12 col-md-8">
             <div class="card shadow-lg border-0 rounded">
@@ -28,7 +28,7 @@
                                 <div class="accordion-body">
                                     <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{ customer.email }}</p>
                                     <p><i class="fas fa-phone"></i> <strong>Phone:</strong> {{ customer.phone_number_1 }}</p>
-                                    <p><i class="fas fa-info-circle"></i> <strong>Status:</strong> {{ customer.status }}</p>
+                                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> {{ customer.phone_number_2 }}</p>
 
                                     <!-- Delete Join Request Button -->
                                     <form action="{% url 'staff_panel:delete_join_request' customer_id=customer.id %}"
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-    </div> <!-- End row -->
-</div> <!-- End container -->
+    </div>
+</div>
 
 {% endblock %}

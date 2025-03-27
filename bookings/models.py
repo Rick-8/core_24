@@ -36,7 +36,9 @@ class Booking(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True
+    )
     email = models.EmailField(max_length=255)
     membership_number = models.CharField(max_length=50, unique=True,
                                          blank=True)
@@ -51,10 +53,13 @@ class Profile(models.Model):
         numeric membership number.
         """
         MEMBERSHIP_START_NUMBER = 1001
-        latest_profile = Profile.objects.aggregate(Max('membership_number'))['membership_number__max']
+        latest_profile = Profile.objects.aggregate(
+            Max('membership_number'))['membership_number__max']
 
         try:
-            new_membership_number = int(latest_profile) + 1 if latest_profile else MEMBERSHIP_START_NUMBER
+            new_membership_number = int(
+                latest_profile) + 1 if latest_profile else \
+                MEMBERSHIP_START_NUMBER
         except (ValueError, TypeError):
             new_membership_number = MEMBERSHIP_START_NUMBER
 

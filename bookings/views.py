@@ -14,7 +14,6 @@ def custom_logout(request):
     logout(request)
     return redirect('logged_out')
 
-
 def logged_out(request):
     """
     Renders the logged-out confirmation page after user logout.
