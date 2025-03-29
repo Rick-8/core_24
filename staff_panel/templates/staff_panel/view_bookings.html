@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container text-center">
+    <h2 class="mb-4 neon-red">View Bookings</h2>
+
+    <!-- Filter form for booking date -->
+    <form method="get" action="{% url 'staff_panel:view_bookings' %}" class="mb-4">
+        <label for="date_filter" class="me-2 welcome">Filter by Date: </label>
+        <select name="date_filter" id="date_filter" class="form-select d-inline-block w-auto mx-2">
+            <option value="">All Bookings</option>
+            {% for booking in bookings %}
+                <option value="{{ booking.date|date:'Y-m-d' }}">{{ booking.date|date:'d-m-Y' }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Scrollable container for the table -->
+    <div style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;">
+        <table class="table">
+            <thead class="welcome">
+                <tr>
+                    <th class="neon-red pb-2 fs-4">User</th>
+                    <th class="neon-red fs-4">Booking Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                    <tr class="welcome">
+                        <td><strong>{{ booking.user.username|upper }}</strong></td>
+                        <td><strong>{{ booking.date|date:"d-m-Y" }}</strong></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to go back to the staff dashboard (bottom) -->
+    <a href="{% url 'staff_panel:staff_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

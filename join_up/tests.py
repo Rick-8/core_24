@@ -68,7 +68,7 @@ class EditMembershipViewTest(TestCase):
         self.membership = Membership.objects.create(
             name='Basic Membership',
             price=24.00,
-            active=True  # Ensure active field is included
+            active=True
         )
 
     def test_edit_membership_post_valid_data(self):
@@ -82,7 +82,6 @@ class EditMembershipViewTest(TestCase):
             'active': True
         })
 
-        # Ensure the membership is updated
         self.membership.refresh_from_db()
         self.assertEqual(self.membership.name, 'Updated Membership')
         self.assertEqual(self.membership.price, 30.00)
@@ -142,14 +141,14 @@ class MembershipCreateViewTest(TestCase):
             email='admin@example.com',
             password='password123'
         )
-        self.client.login(username='admin', password='password123')  # Fix login username
+        self.client.login(username='admin', password='password123')
         self.url = reverse('join_up:create_membership')
 
     def test_create_membership_success(self):
         """Test successful membership creation."""
         data = {
             'name': 'Premium Membership',
-            'price': 99.99,  # Ensure price is passed as a number
+            'price': 99.99,
             'description': 'Premium gym membership with all benefits.',
             'active': True
         }
@@ -165,7 +164,7 @@ class MembershipCreateViewTest(TestCase):
         """Test creation of a new membership with invalid data."""
         data = {
             'name': 'Invalid Membership',
-            'price': 'invalid_price',  # This should fail
+            'price': 'invalid_price',
             'description': 'Invalid gym membership.',
             'active': True
         }
@@ -175,7 +174,7 @@ class MembershipCreateViewTest(TestCase):
 
     def test_create_membership_not_logged_in(self):
         """Test that an unauthenticated user is redirected to the login page."""
-        self.client.logout()  # Ensure user is logged out
+        self.client.logout()
         data = {
             'name': 'Another Membership',
             'price': 49.99,

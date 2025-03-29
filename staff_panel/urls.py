@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test
 from . import views
 
 
@@ -19,7 +20,10 @@ urlpatterns = [
     path('delete-closed-day/<int:pk>/', staff_member_required(views.delete_closed_day), name='delete_closed_day'),
 
     # Superuser-only URLs
-    path('promote-to-staff/<int:user_id>/', views.promote_to_staff, name='promote_to_staff'),
-    path('delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
-    path('update-user/<int:user_id>/', views.update_user_settings, name='update_user_settings'),
+    path('promote-to-staff/<int:user_id>/', user_passes_test(lambda u: u.is_superuser)(views.promote_to_staff), name='promote_to_staff'),
+    path('delete-user/<int:user_id>/', user_passes_test(lambda u: u.is_superuser)(views.delete_user), name='delete_user'),
+    path('update-user/<int:user_id>/', user_passes_test(lambda u: u.is_superuser)(views.update_user_settings), name='update_user_settings'),
+
+    # Booking View
+    path('view-bookings/', staff_member_required(views.view_bookings), name='view_bookings'),
 ]

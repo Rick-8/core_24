@@ -10,6 +10,7 @@ from join_up.models import Customer
 from bookings.models import ClosedDay
 from .forms import ClosedDayForm, CustomUserCreationForm
 from django.db.models import Q
+from bookings.models import Booking 
 
 
 def is_staff_user(user):
@@ -184,3 +185,15 @@ def delete_closed_day(request, pk):
     except ClosedDay.DoesNotExist:
         messages.error(request, "Closed day not found.")
     return redirect('staff_panel:closed_day_list')
+
+
+def view_bookings(request):
+    # Get the selected date from the GET request
+    selected_date = request.GET.get('date', None)
+    
+    if selected_date:
+        bookings = Booking.objects.filter(date=selected_date)
+    else:
+        bookings = Booking.objects.all()
+    
+    return render(request, 'staff_panel/view_bookings.html', {'bookings': bookings})

@@ -8,6 +8,10 @@ class DateInput(forms.DateInput):
 
 
 class BookingForm(ModelForm):
+    """
+    Form for creating or updating a booking, including
+    fields for the booking date.
+    """
     class Meta:
         model = Booking
         fields = ['date']

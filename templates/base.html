@@ -75,13 +75,13 @@
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'book_slot' %}"
+                        <a class="nav-link" href="{% url 'bookings:book_slot' %}"
                             style="color: white; font-weight: bold;">Bookings</a>
                     </li>
 
                     <!-- Add Profile link for logged-in users -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile_view' %}"
+                        <a class="nav-link" href="{% url 'bookings:profile_view' %}"
                             style="color: white; font-weight: bold;">Profile</a>
                     </li>
                     {% endif %}

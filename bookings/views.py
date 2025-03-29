@@ -14,6 +14,7 @@ def custom_logout(request):
     logout(request)
     return redirect('logged_out')
 
+
 def logged_out(request):
     """
     Renders the logged-out confirmation page after user logout.
@@ -60,7 +61,7 @@ def book_slot(request):
                         )
                 except Booking.DoesNotExist:
                     messages.error(request, "Booking not found.")
-            return redirect("book_slot")
+            return redirect("bookings:book_slot")
 
         if form.is_valid():
             booking_date = form.cleaned_data["date"]
@@ -70,20 +71,20 @@ def book_slot(request):
                     request,
                     f"The gym is closed on {booking_date} due to maintenance."
                 )
-                return redirect("book_slot")
+                return redirect("bookings:book_slot")
 
             if Booking.objects.filter(
                     date=booking_date, user=request.user).exists():
                 messages.error(
                     request, "You have already booked a session for this date."
                 )
-                return redirect("book_slot")
+                return redirect("bookings:book_slot")
 
             if Booking.objects.filter(date=booking_date).count() >= 50:
                 messages.error(
                     request, "Sorry, all slots for this date are fully booked."
                 )
-                return redirect("book_slot")
+                return redirect("bookings:book_slot")
 
             booking = form.save(commit=False)
             booking.user = request.user
@@ -91,7 +92,7 @@ def book_slot(request):
 
             messages.success(
                 request, "Your session has been successfully booked!")
-            return redirect("booking_confirmation")
+            return redirect("bookings:booking_confirmation")
 
     return render(
         request, "bookings/book_slot.html",
@@ -135,7 +136,7 @@ def delete_profile(request):
         return redirect("logged_out")
     except Profile.DoesNotExist:
         messages.error(request, "Profile not found.")
-        return redirect("profile_view")
+        return redirect("bookings:profile_view")
 
 
 @login_required
@@ -154,7 +155,7 @@ def edit_profile(request):
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profile_view')
+            return redirect('bookings:profile_view')
     else:
         form = ProfileForm(instance=profile)
 

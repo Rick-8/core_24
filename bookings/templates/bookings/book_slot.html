@@ -43,7 +43,7 @@
           <span class="flex-grow-1 text-start">{{ booking.date }}</span>
 
          
-          <form method="POST" action="{% url 'book_slot' %}">
+          <form method="POST" action="{% url 'bookings:book_slot' %}">
             {% csrf_token %}
             <input type="hidden" name="cancel_booking" value="{{ booking.id }}">
             <button type="submit" class="btn btn-danger ms-3">Delete*</button>

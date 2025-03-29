@@ -1,5 +1,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
+from django.urls import reverse_lazy
 import os
 import dj_database_url
 
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_extensions',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -59,6 +61,8 @@ MIDDLEWARE = [
 # Authentication settings
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+LOGIN_URL = reverse_lazy('account_login')
+
 
 ROOT_URLCONF = 'project_24.urls'
 
