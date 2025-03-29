@@ -85,7 +85,7 @@
                             style="color: white; font-weight: bold;">Profile</a>
                     </li>
                     {% endif %}
-                    
+
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'join_up:join_up' %}"
@@ -112,8 +112,8 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}"
-                            style="color: white; font-weight: bold;"><i class="fa-regular fa-user"></i></a>
+                        <a class="nav-link" href="{% url 'account_login' %}" style="color: white; font-weight: bold;"><i
+                                class="fa-regular fa-user"></i></a>
                     </li>
                     {% endif %}
 
@@ -131,21 +131,20 @@
 
     <!-- Main Content -->
     <div class="content">
-
         <div class="background-image d-flex align-items-start text-center bg-dark p-5 rounded py-5">
             <div class="overlay">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
-
     </div>
+
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-auto">
         <div>
-            <p>&copy; 2025 Core24 Gym. All rights reserved.</p>
             <div>
+                <p>&copy; 2025 Core24 Gym. All rights reserved.</p>
                 <a href="https://facebook.com" class="text-white me-3" target="_blank" title="Facebook">
                     <i class="bi bi-facebook"></i>
                 </a>

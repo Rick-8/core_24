@@ -6,4 +6,6 @@ class BookingsConfig(AppConfig):
     name = 'bookings'
 
     def ready(self):
-        import bookings.signals
+        # Importing bookings.signals to register signal handlers
+        # Importing bookings.signals to ensure signal handlers are registered
+        import bookings.signals  # noqa: F401

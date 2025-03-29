@@ -32,7 +32,10 @@ class JoinUpViewTest(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
             str(messages[0]),
-            "Thank you for joining up! A member of staff will contact you within 24hrs."
+            (
+                "Thank you for joining up! A member of staff will contact you "
+                "within 24hrs."
+            )
         )
 
     def test_join_up_view_get(self):
@@ -75,12 +78,15 @@ class EditMembershipViewTest(TestCase):
         """Test the POST request to edit a membership with valid data."""
         self.client.login(username='superuser', password='password')
 
-        response = self.client.post(reverse('join_up:edit_membership', args=[self.membership.id]), {
-            'name': 'Updated Membership',
-            'price': 30.00,
-            'description': 'Updated description',
-            'active': True
-        })
+        response = self.client.post(
+            reverse('join_up:edit_membership', args=[self.membership.id]),
+            {
+                'name': 'Updated Membership',
+                'price': 30.00,
+                'description': 'Updated description',
+                'active': True
+            }
+        )
 
         self.membership.refresh_from_db()
         self.assertEqual(self.membership.name, 'Updated Membership')
@@ -108,7 +114,9 @@ class DeleteMembershipTestCase(TestCase):
             active=True
         )
 
-        self.url = reverse('join_up:delete_membership', args=[self.membership.id])
+        self.url = reverse(
+            'join_up:delete_membership', args=[self.membership.id]
+        )
 
     def test_delete_membership_success(self):
         """Test successful deletion of a membership."""
@@ -116,7 +124,10 @@ class DeleteMembershipTestCase(TestCase):
         response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Membership.objects.filter(id=self.membership.id).count(), 0)
+        membership_count = Membership.objects.filter(
+            id=self.membership.id
+        ).count()
+        self.assertEqual(membership_count, 0)
 
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), "Membership deleted successfully.")
@@ -155,7 +166,9 @@ class MembershipCreateViewTest(TestCase):
 
         response = self.client.post(self.url, data)
         self.assertRedirects(response, reverse('join_up:manage_memberships'))
-        self.assertTrue(Membership.objects.filter(name='Premium Membership').exists())
+        self.assertTrue(
+            Membership.objects.filter(name='Premium Membership').exists()
+        )
 
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), "Membership created successfully.")
@@ -173,7 +186,9 @@ class MembershipCreateViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_create_membership_not_logged_in(self):
-        """Test that an unauthenticated user is redirected to the login page."""
+        """
+        Test that an unauthenticated user is redirected to the login page.
+        """
         self.client.logout()
         data = {
             'name': 'Another Membership',

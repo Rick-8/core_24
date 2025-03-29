@@ -1,7 +1,7 @@
 from django import forms
 from .models import Customer
 from .models import Membership
-from ckeditor.widgets import CKEditorWidget
+from ckeditor.widgets import CKEditorWidget  # noqa
 
 
 class CustomerForm(forms.ModelForm):

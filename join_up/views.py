@@ -1,10 +1,10 @@
-from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.admin.views.decorators import staff_member_required  # noqa
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Membership
 from .forms import CustomerForm, MembershipForm
-from django.contrib.messages import get_messages
+from django.contrib.messages import get_messages  # noqa
 
 
 def join_up(request):
@@ -14,7 +14,12 @@ def join_up(request):
             form.save()
             messages.success(
                 request,
-                "Thank you for joining up! A member of staff will contact you within 24hrs."
+                (
+                    (
+                        "Thank you for joining up! "
+                        "A member of staff will contact you within 24hrs."
+                    )
+                ),
             )
             return redirect('join_up:join_up')
         else:
@@ -27,7 +32,9 @@ def join_up(request):
 
 def membership_list(request):
     memberships = Membership.objects.filter(active=True)
-    return render(request, 'join_up/memberships.html', {'memberships': memberships})
+    return render(
+        request, 'join_up/memberships.html', {'memberships': memberships}
+    )
 
 
 def superuser_required(function):
@@ -37,7 +44,11 @@ def superuser_required(function):
 @superuser_required
 def manage_memberships(request):
     memberships = Membership.objects.all()
-    return render(request, 'join_up/manage_memberships.html', {'memberships': memberships})
+    return render(
+        request,
+        'join_up/manage_memberships.html',
+        {'memberships': memberships},
+    )
 
 
 @superuser_required

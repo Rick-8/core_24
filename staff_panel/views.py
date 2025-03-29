@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required, user_passes_test  # noqa
+from django.http import HttpResponseForbidden  # noqa
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib import messages
@@ -9,8 +9,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from join_up.models import Customer
 from bookings.models import ClosedDay
 from .forms import ClosedDayForm, CustomUserCreationForm
-from django.db.models import Q
-from bookings.models import Booking 
+from django.db.models import Q  # noqa
+from bookings.models import Booking
 
 
 def is_staff_user(user):
@@ -35,18 +35,22 @@ def delete_join_request(request, customer_id):
             customer = Customer.objects.get(id=customer_id)
             customer.delete()
         except Customer.DoesNotExist:
-            messages.error(request, 'The requested customer could not be found.')
+            messages.error(
+                request, 'The requested customer could not be found.'
+            )
 
     return redirect('staff_dashboard')
 
 
 @staff_member_required
 def user_admin(request):
-    search_query = request.GET.get('search', '')  # Get the search query from GET request
+    # Get the search query from GET request
+    search_query = request.GET.get('search', '')
 
     # Fetch users, filter by search query if provided
     if search_query:
-        users_list = User.objects.filter(username__icontains=search_query) | User.objects.filter(email__icontains=search_query)
+        users_list = User.objects.filter(username__icontains=search_query) | \
+                     User.objects.filter(email__icontains=search_query)
     else:
         users_list = User.objects.all()
 
@@ -55,14 +59,11 @@ def user_admin(request):
     page_number = request.GET.get('page')
     users = paginator.get_page(page_number)
 
-    return render(request, 'staff_panel/user_admin.html', {'users': users, 'search_query': search_query})
-
-
-
-@staff_member_required
-def user_admin(request):
-    users = User.objects.all() if request.user.is_superuser else User.objects.filter(is_staff=False, is_superuser=False)
-    return render(request, 'staff_panel/user_admin.html', {'users': users})
+    return render(
+        request,
+        'staff_panel/user_admin.html',
+        {'users': users, 'search_query': search_query}
+    )
 
 
 @staff_member_required
@@ -86,7 +87,8 @@ def toggle_user_active(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.is_active = not user.is_active
     user.save()
-    messages.success(request, f'User {user.username} is now {"active" if user.is_active else "inactive"}.')
+    status = "active" if user.is_active else "inactive"
+    messages.success(request, f'User {user.username} is now {status}.')
     return redirect('staff_panel:user_admin')
 
 
@@ -97,9 +99,15 @@ def promote_to_staff(request, user_id):
         if not user.is_staff:
             user.is_staff = True
             user.save()
-            messages.success(request, f'User {user.username} has been promoted to staff.')
+            messages.success(
+                request,
+                f'User {user.username} has been promoted to staff.'
+            )
         else:
-            messages.warning(request, f'User {user.username} is already a staff member.')
+            messages.warning(
+                request,
+                f'User {user.username} is already a staff member.'
+            )
     except User.DoesNotExist:
         messages.error(request, 'The user could not be found.')
 
@@ -127,7 +135,11 @@ def update_user_settings(request, user_id):
 
         if not username or not email:
             messages.error(request, "Username and Email are required.")
-            return render(request, 'staff_panel/update_user_settings', {'user': user})
+            return render(
+                request,
+                'staff_panel/update_user_settings',
+                {'user': user}
+            )
 
         user.username = username
         user.email = email
@@ -136,7 +148,10 @@ def update_user_settings(request, user_id):
         user.is_superuser = is_superuser
         user.save()
 
-        messages.success(request, f"User {user.username}'s settings have been updated successfully.")
+        messages.success(
+            request,
+            f"User {user.username}'s settings have been updated successfully."
+        )
         return redirect('staff_panel:user_admin')
 
     return render(request, 'staff_panel/update_user.html', {'user': user})
@@ -149,18 +164,28 @@ def reset_password(request, user_id):
         form = SetPasswordForm(user, request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Password reset successfully for {user.username}')
+            messages.success(
+                request, f'Password reset successfully for {user.username}'
+            )
             return redirect('staff_panel:user_admin')
     else:
         form = SetPasswordForm(user)
 
-    return render(request, 'staff_panel/reset_password.html', {'form': form, 'user': user})
+    return render(
+        request,
+        'staff_panel/reset_password.html',
+        {'form': form, 'user': user}
+    )
 
 
 @staff_member_required
 def closed_day_list(request):
     closed_days = ClosedDay.objects.all()
-    return render(request, 'staff_panel/closed_day_list.html', {'closed_days': closed_days})
+    return render(
+        request,
+        'staff_panel/closed_day_list.html',
+        {'closed_days': closed_days}
+    )
 
 
 @staff_member_required
@@ -190,10 +215,14 @@ def delete_closed_day(request, pk):
 def view_bookings(request):
     # Get the selected date from the GET request
     selected_date = request.GET.get('date', None)
-    
+
     if selected_date:
         bookings = Booking.objects.filter(date=selected_date)
     else:
         bookings = Booking.objects.all()
-    
-    return render(request, 'staff_panel/view_bookings.html', {'bookings': bookings})
+
+    return render(
+        request,
+        'staff_panel/view_bookings.html',
+        {'bookings': bookings}
+    )

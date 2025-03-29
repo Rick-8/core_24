@@ -117,9 +117,6 @@ class DeleteProfileTestCase(TestCase):
 
         self.assertFalse(Profile.objects.filter(user=self.user).exists())
 
-        new_user = User.objects.create_user(
-            username="newuser", password="newpassword"
-        )
         self.client.login(username="newuser", password="newpassword")
         response = self.client.post(reverse('bookings:delete_profile'))
         self.assertEqual(response.status_code, 302)

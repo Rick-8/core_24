@@ -1,7 +1,8 @@
 from django.contrib.messages.middleware import MessageMiddleware
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse  # noqa
 from django.conf import settings
+from django.contrib import messages
 
 
 class StaffRequiredMiddleware:
@@ -15,10 +16,16 @@ class StaffRequiredMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if request.path.startswith('/staff_panel/') and not request.user.is_authenticated:
+        if (
+            request.path.startswith('/staff_panel/')
+            and not request.user.is_authenticated
+        ):
             return redirect(settings.LOGIN_URL)
 
-        if request.path.startswith('/staff_panel/') and not request.user.is_staff:
+        if (
+            request.path.startswith('/staff_panel/')
+            and not request.user.is_staff
+        ):
             return redirect(settings.LOGIN_URL)
 
         return self.get_response(request)

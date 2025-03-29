@@ -12,7 +12,7 @@
         <select name="date_filter" id="date_filter" class="form-select d-inline-block w-auto mx-2">
             <option value="">All Bookings</option>
             {% for booking in bookings %}
-                <option value="{{ booking.date|date:'Y-m-d' }}">{{ booking.date|date:'d-m-Y' }}</option>
+            <option value="{{ booking.date|date:'Y-m-d' }}">{{ booking.date|date:'d-m-Y' }}</option>
             {% endfor %}
         </select>
         <button type="submit" class="btn btn-primary">Filter</button>
@@ -29,10 +29,10 @@
             </thead>
             <tbody>
                 {% for booking in bookings %}
-                    <tr class="welcome">
-                        <td><strong>{{ booking.user.username|upper }}</strong></td>
-                        <td><strong>{{ booking.date|date:"d-m-Y" }}</strong></td>
-                    </tr>
+                <tr class="welcome">
+                    <td><strong>{{ booking.user.username|upper }}</strong></td>
+                    <td><strong>{{ booking.date|date:"d-m-Y" }}</strong></td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
