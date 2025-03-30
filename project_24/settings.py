@@ -152,3 +152,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CKEditor settings
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# Set session timeout to 3 minutes (180 seconds)
+SESSION_COOKIE_AGE = 180  # Time in seconds (3 minutes)
+
+# Expire the session when the browser is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container mt-4 text-center">
     <!-- Title and Button Section -->
@@ -69,17 +69,4 @@
     </div>
 </div>
 
-{% endblock %}
-
-{% block scripts %}
-<script>
-    var deleteButtons = document.querySelectorAll('[data-bs-target="#deleteMembershipModal"]');
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            var membershipId = this.getAttribute('data-membership-id');
-            var formAction = '{% url "join_up:delete_membership" "membership_id" %}'.replace('membership_id', membershipId);
-            document.getElementById('deleteMembershipForm').setAttribute('action', formAction);
-        });
-    });
-</script>
 {% endblock %}

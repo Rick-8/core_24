@@ -1,25 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="neon-red">{{ user.username|upper }}'s Profile</h1>
+    <div class="container text-center my-5">
+        <h1 class="neon-red mb-4">{{ user.username|upper }}'s Profile</h1>
 
-    {% if profile %}
-        <p class="welcome"><strong>Email:</strong> {{ profile.user.email }}</p> 
-        <p class="welcome"><strong>Membership Number:</strong> {{ profile.membership_number }}</p>
-        <p class="welcome"><strong>Address:</strong> {{ profile.personal_address }}</p>
-        <p class="welcome"><strong>Phone Number 1:</strong> {{ profile.phone_number_1 }}</p>
-        <p class="welcome"><strong>Phone Number 2:</strong> {{ profile.phone_number_2 }}</p>       
-    {% else %}
-        <p class="welcome">No profile information available. Please update your profile.</p>
-    {% endif %}
+        {% if profile %}
+            <div class="profile-info">
+                <p class="welcome"><strong>Email:</strong> {{ profile.user.email }}</p> 
+                <p class="welcome"><strong>Membership Number:</strong> {{ profile.membership_number }}</p>
+                <p class="welcome"><strong>Address:</strong> {{ profile.personal_address }}</p>
+                <p class="welcome"><strong>Phone Number 1:</strong> {{ profile.phone_number_1 }}</p>
+                <p class="welcome"><strong>Phone Number 2:</strong> {{ profile.phone_number_2 }}</p>       
+            </div>
+        {% else %}
+            <p class="welcome">No profile information available. Please update your profile.</p>
+        {% endif %}
 
-    <!-- Profile Form -->
-    <form method="post" action="{% url 'bookings:edit_profile' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Save Changes</button>
-    </form>
+        <!-- Profile Form -->
+        <form method="post" action="{% url 'bookings:edit_profile' %}" class="mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+        </form>
 
-    <a href="{% url 'bookings:edit_profile' %}" class="btn btn-warning">Edit Profile</a>
-    <a href="{% url 'index' %}" class="btn btn-primary">Return to Home</a>
+        <div class="mt-4">
+            <a href="{% url 'bookings:edit_profile' %}" class="btn btn-warning mx-2">Edit Profile</a>
+            <a href="{% url 'index' %}" class="btn btn-primary mx-2">Return to Home</a>
+        </div>
+    </div>
 {% endblock %}

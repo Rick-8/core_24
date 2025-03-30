@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="neon-red">Create New Membership</h1>
-    <form method="post" class="welcome">
-        {% csrf_token %}
-        {{ form.media }}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Create Membership</button>
-        <a href="{% url 'join_up:manage_memberships' %}" class="btn btn-secondary">Cancel</a>
-    </form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-12">
+            <h1 class="text-center neon-red mb-1">Create New Membership</h1>
+            <form method="post" class="welcome">
+                {% csrf_token %}
+                {{ form.media }}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Create Membership</button>
+                    <a href="{% url 'join_up:manage_memberships' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
-
