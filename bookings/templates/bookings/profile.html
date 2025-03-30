@@ -12,8 +12,14 @@
     {% else %}
         <p class="welcome">No profile information available. Please update your profile.</p>
     {% endif %}
-    
 
-    <a href="{% url 'bookings:edit_profile' %}" class="btn btn-primary">Edit</a>
+    <!-- Profile Form -->
+    <form method="post" action="{% url 'bookings:edit_profile' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
+
+    <a href="{% url 'bookings:edit_profile' %}" class="btn btn-warning">Edit Profile</a>
     <a href="{% url 'index' %}" class="btn btn-primary">Return to Home</a>
 {% endblock %}

@@ -1,4 +1,3 @@
-from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test  # noqa
 from django.http import HttpResponseForbidden  # noqa
@@ -42,22 +41,22 @@ def delete_join_request(request, customer_id):
     return redirect('staff_dashboard')
 
 
+def staff_or_superuser(user):
+    return user.is_staff or user.is_superuser
+
+
 @staff_member_required
 def user_admin(request):
-    # Get the search query from GET request
     search_query = request.GET.get('search', '')
 
-    # Fetch users, filter by search query if provided
     if search_query:
         users_list = User.objects.filter(username__icontains=search_query) | \
                      User.objects.filter(email__icontains=search_query)
     else:
         users_list = User.objects.all()
 
-    # Paginate the users list (optional)
-    paginator = Paginator(users_list, 6)
-    page_number = request.GET.get('page')
-    users = paginator.get_page(page_number)
+    # Sort users alphabetically by username
+    users = users_list.order_by('username')
 
     return render(
         request,

@@ -35,8 +35,8 @@
                                     <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{ customer.email }}</p>
                                     <p><i class="fas fa-phone"></i> <strong>Phone:</strong>
                                         {{ customer.phone_number_1 }}</p>
-                                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> {{ customer.phone_number_2
-                                        }}</p>
+                                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> 
+                                        {{ customer.phone_number_2 }}</p>
 
                                     <!-- Delete Join Request Button -->
                                     <form action="{% url 'staff_panel:delete_join_request' customer_id=customer.id %}"

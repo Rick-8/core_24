@@ -27,7 +27,7 @@
     <p>No memberships available.</p>
     {% endfor %}
 </div>
-
+<a href="{% url 'join_up:join_up' %}" class="btn btn-danger mt-4">Join up</a>
 {% endblock %}
 
 <script src="{% static 'js/ckeditor5/build/ckeditor.js' %}"></script>
