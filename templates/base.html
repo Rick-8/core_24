@@ -139,7 +139,7 @@
 
     <!-- Main Content -->
     <div class="content">
-        <div class="background-image d-flex align-items-start text-center bg-dark p-5 rounded py-5">
+        <div class="background-image" data-bg="{% static 'images/humphrey-muleba-LOA2mTj1vhc-unsplash.webp' %}">
             <div class="overlay">
                 {% block content %}
                 {% endblock %}
@@ -209,5 +209,11 @@
     <script src="{% static 'js/custom.js' %}" defer></script>
 
 </body>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const backgroundElement = document.querySelector('.background-image');
+        const imageUrl = backgroundElement.getAttribute('data-bg');
+        backgroundElement.style.backgroundImage = `url(${imageUrl})`;
+    });
+</script>
 </html>

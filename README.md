@@ -2,7 +2,6 @@
 
 # Core 24 Gym: Elite Fitness & Social Club
 
-![Landing Page Image](static/images/readme_images/responsive.webp)
 
 <span style="color: red; font-size: 30px;">Welcome to Core 24, the ultimate high-end gym and social club for serious fitness enthusiasts. </span>
 
@@ -22,6 +21,10 @@ Built with Django, the Core 24 Gym Booking System is a full-stack web applicatio
 
 Whether you’re an elite athlete, a fitness professional, or simply someone who values a premium workout experience, Core 24 is here for you 24/7. Join us and train in exclusivity!
 
+[Visit Core 24 Gym](https://core24-62ff6f5b0560.herokuapp.com/)
+
+
+
 ## Project Goal
 The Core 24 Gym Booking System provides a seamless, secure, and professional online reservation system for members to book their training sessions with ease.
 
@@ -35,8 +38,11 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 ## Target Audience
 ### Core 24 caters to:
 🏋️‍♂️ **Serious Gym Enthusiasts & Athletes** – Those who demand the highest quality in equipment, space, and personal coaching.  
+
 📢 **High-Profile Individuals** – Celebrities, executives, and public figures who value a discreet training experience.  
+
 👥 **Exclusive Social Club Members** – Fitness lovers who want to be part of a high-end, like-minded community.  
+
 📅 **Busy Professionals** – Members who require 24/7 access and a seamless booking system to fit their schedule.  
 
 ## Design & User Experience
@@ -44,23 +50,37 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 
 - Models Map - ![Landing Page Image](static/images/readme_images/myapp_models.png)
 
+- Minimalist & High-End Aesthetic – The design focuses on sleek, modern aesthetics with a premium look and feel, aligning with the exclusive nature of the gym.
+
+- Intuitive Navigation – A simple and straightforward interface ensures that members can quickly book sessions, view availability, and manage their accounts with minimal effort.
+
+- Mobile-Optimized Experience – Fully responsive across devices, ensuring a smooth and accessible experience whether on desktop, tablet, or mobile.
+
+- Privacy-Focused Design – Members’ privacy is a top priority, with an emphasis on secure access and personalized user interfaces, providing a seamless, private, and exclusive gym experience.
+
 
 ### 🔹 Premium & Consistent Theme
 - A sleek, high-end design reflects the exclusivity of Core 24.
 - Professional color schemes, minimalistic layout, and luxury aesthetics.
 - Consistent user interface for easy navigation.
 
+
 ### 🔹 Responsive & Device-Friendly
 - Fully optimized for desktops, tablets, and smartphones.
 - Adaptive design ensures smooth interaction across all platforms.
+
 
 ### 🔹 Simple & Intuitive Booking System
 - Members can book gym slots effortlessly.
 - Real-time slot availability ensures fair and structured access.
 
+
 ### 🔹 Admin Panel for Gym Management
 - Secure dashboard for staff to oversee bookings, memberships, and profiles.
 - Django-powered backend ensures stability and scalability.
+
+
+
 
 ## Features
 
@@ -75,11 +95,14 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 
 ### 👤 Booking System & Personalized Access – Streamlined & Efficient
 
-![Booking System Image](static/images/readme_images/Screenshot%202025-03-30%20151445.webp) - The Log in/out symbol changes to help identify status
-![Booking System Image](static/images/readme_images/Screenshot%202025-03-30%20150252.webp)
+![Booking System Image](static/images/readme_images/Screenshot%202025-03-30%20151445.webp) **Logged out**
+
+![Booking System Image](static/images/readme_images/Screenshot%202025-03-30%20163745.webp) **User Logged in**
+
+![Booking System Image](static/images/readme_images/Screenshot%202025-03-30%20150252.webp) **Superuser/Staff Logged in**
 
 
-
+- The Log in/out symbol changes to help identify status
 - Members can book a workout session in advance, with limited daily slots.
 - Personal training sessions can be scheduled.
 - Instant booking confirmation with email notifications.
@@ -89,7 +112,9 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 
 ### 🛠️ Admin Panel – Full Control for Staff
 
-![Admin Panel Image]()  
+![staff dash Image](static/images/readme_images/staff-staffdash.webp) **Staff User**
+
+![S'user dash Image](static/images/readme_images/suser-staffdash.webp) **Super User**
 
 - Manage bookings, personal training schedules, and membership status.
 - Oversee member activity and ensure smooth gym operations.
@@ -98,7 +123,7 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 
 ### 📱 Responsive & Secure System
 
-![Responsive System Image]()
+![Site responsive Image](static/images/readme_images/responsive.webp)
 
 - Built for mobile and desktop use.
 - Strong authentication via **Django allauth**.  
@@ -132,7 +157,7 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
    - Ran migrations and collected static files.
    - Deployed and verified successful launch.
 5️⃣ **Live Application**
-   - The application is live at: **[Heroku Link]**
+   - The application is live at: **[(https://core24-62ff6f5b0560.herokuapp.com/)]**
 
 ## Credits
 🙏 **Acknowledgments:**
