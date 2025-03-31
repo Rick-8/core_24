@@ -1,15 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("JavaScript is running!"); // Debugging
+    console.log("JavaScript is running!");
 
     // Background Image Setup
-    const bgElement = document.querySelector('.background-image');
-    if (bgElement) {
+    const bgElements = document.querySelectorAll('.background-image');
+
+    bgElements.forEach((bgElement) => {
         const imgUrl = bgElement.getAttribute('data-bg');
-        bgElement.style.backgroundImage = `url(${imgUrl})`;
-        bgElement.style.backgroundSize = 'cover';
-        bgElement.style.backgroundPosition = 'center';
-        bgElement.style.backgroundRepeat = 'no-repeat';
-    }
+        if (imgUrl) {
+            bgElement.style.backgroundImage = `url("${imgUrl}")`;
+            bgElement.style.backgroundSize = 'cover';
+            bgElement.style.backgroundPosition = 'center';
+            bgElement.style.backgroundRepeat = 'no-repeat';
+        } else {
+            console.error("Background image URL is missing.");
+        }
+    });
 
     // DELETE USER MODAL
     const deleteUserModal = document.getElementById("deleteUserModal");
