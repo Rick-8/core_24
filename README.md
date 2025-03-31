@@ -21,6 +21,8 @@ Built with Django, the Core 24 Gym Booking System is a full-stack web applicatio
 
 Whether you’re an elite athlete, a fitness professional, or simply someone who values a premium workout experience, Core 24 is here for you 24/7. Join us and train in exclusivity!
 
+![Site responsive Image](static/images/readme_images/Screenshot%202025-03-30%20at%2018.28.30.png)
+
 [Visit Core 24 Gym](https://core24-62ff6f5b0560.herokuapp.com/)
 
 With **Core 24**, fitness is more than just a routine—it’s an exclusive experience. 💪🔥
@@ -64,6 +66,11 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 - Professional color schemes, minimalistic layout, and luxury aesthetics.
 - Consistent user interface for easy navigation.
 
+![Landing Page Image](static/images/readme_images/general.webp)
+
+![Landing Page Image](static/images/readme_images/base.webp)
+
+![Landing Page Image](static/images/readme_images/index.webp)
 
 ### 🔹 Responsive & Device-Friendly
 - Fully optimized for desktops, tablets, and smartphones.
@@ -84,7 +91,7 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 
 ### ✨ Landing Page – First-Class Experience
 
-![Landing Page Image](static\images\readme_images\Screenshot%202025-03-30%20145330.webp)
+![Landing Page Image](static/images/readme_images/Screenshot%202025-03-30%20145330.webp)
 
 - A visually appealing introduction to Core 24’s premium offerings.
 - Showcases the gym’s high-end facilities, trainers, and exclusive membership benefits.
@@ -121,7 +128,6 @@ The Core 24 Gym Booking System provides a seamless, secure, and professional onl
 
 ### 📱 Responsive & Secure System
 
-![Site responsive Image](static/images/readme_images/Screenshot%202025-03-30%20at%2018.28.30.png)
 
 - Built for mobile and desktop use.
 - Strong authentication via **Django allauth**.  
